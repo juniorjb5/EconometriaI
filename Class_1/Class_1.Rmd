@@ -796,9 +796,9 @@ class: inverse, center, middle
 <br>
 <br>
 <br>
-* ###Datos de corte transversal
-* ###Datos de serie de tiempo
-* ###Combinación de cortes transversales
+* ###Datos de corte transversal.
+* ###Datos de serie de tiempo.
+* ###Combinación de cortes transversales.
 ]
 
 ---
