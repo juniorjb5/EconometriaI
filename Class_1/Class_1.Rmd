@@ -815,15 +815,16 @@ background-color: #122140
 
 # Gracias!!!
 
-<br><br><br>
+<br>
 
 
 
 ### ¿Preguntas?
 
+<br>
 
 
-```{r qr, echo=FALSE, fig.align="center", out.width="50%"}
+```{r qr, echo=FALSE, fig.align="center", out.width="49%"}
 knitr::include_graphics("img/qr-code.png")
 ```
 
