@@ -114,6 +114,9 @@ class: left, middle, inverse
 .pull-left[
 ### `r icon("sort-numeric-up")` [Actividad 1](#Act1)
 
+### `r icon("sort-numeric-up")` [Actividad 2](#Act2)
+
+
 ]
 
 
@@ -144,9 +147,48 @@ class: inverse, center, middle
 
 ---
 
+# 🤯 Actividad 1
+
+.pull-left[
+
+<img src="https://media.giphy.com/media/eKZrQHSu8IHFPQk40D/giphy.gif" width="90%"/>
+
+]
+
+.pull-right[
+
+### Seleccione un país de su preferencia (Que no sea USA) y compruebe el planteamiento de Keynes.
+
+# .orange[¿La propensión marginal a consumir es positiva pero menor que 1?]
+
+]
+
+---
+
+
+
+name: Act2
+class: inverse, center, middle
+
+# `r icon("sort-numeric-up")`
+# Actividad 2
+----
+
+.right[
+.bottom[
+####  [`r icon("bell")`](#menu)
+]
+]
+
+
+# 🥸
+
+
+---
+
 class: center, middle
 
-# 🤯 Actividad 1
+# 🤯 Actividad 2
 
 <br>
 
@@ -185,7 +227,7 @@ class: center, middle
 
 
 
-# 🤯 Actividad 1
+# 🤯 Actividad 2
 
 
 ## Punto 1
@@ -204,7 +246,7 @@ Para este ejercicio emplee la base de datos `WAGE1.RAW`
 ---
 
 
-# 🤯 Actividad 1
+# 🤯 Actividad 2
 
 
 ## Punto 2
@@ -227,7 +269,7 @@ Para responder estas preguntas emplee la base de datos `BWGHT.RAW`
 ---
 
 
-# 🤯 Actividad 1
+# 🤯 Actividad 2
 
 
 ## Punto 3
