@@ -1,0 +1,1403 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Econometria I</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="PhD.(C) Orlando Joaqui-Barandica" />
+    <meta name="date" content="2023-01-01" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/rladies.css" rel="stylesheet" />
+    <link href="libs/remark-css/rladies-fonts.css" rel="stylesheet" />
+    <script src="libs/clipboard/clipboard.min.js"></script>
+    <link href="libs/shareon/shareon.min.css" rel="stylesheet" />
+    <script src="libs/shareon/shareon.min.js"></script>
+    <link href="libs/xaringanExtra-shareagain/shareagain.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-shareagain/shareagain.js"></script>
+    <link href="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"Copy Code","success":"Copied!","error":"Press Ctrl+C to Copy"})</script>
+    <link href="libs/font-awesome/css/all.min.css" rel="stylesheet" />
+    <link href="libs/font-awesome/css/v4-shims.min.css" rel="stylesheet" />
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        TeX: { equationNumbers: { autoNumber: "AMS" } },
+      });
+    </script>
+    <style>
+    .mjx-mrow a {
+      color: black;
+      pointer-events: none;
+      cursor: default;
+    }
+    </style>
+    <link rel="stylesheet" href="fonts_mtheme.css" type="text/css" />
+    <link rel="stylesheet" href="sidney.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+
+class: inverse, left, bottom
+background-image: url("img/fondo.jpg")
+background-size: cover
+
+
+# **Econometria I**
+----
+
+## **&lt;br/&gt; Regresión Lineal Simple**
+
+### PhD.(C) Orlando Joaqui-Barandica
+### 2023
+
+
+
+
+
+---
+name: hola
+class: inverse, middle, center
+
+&lt;img style="border-radius: 60%;" src="img/jave.jpg"
+width="150px"
+/&gt;
+
+# Pontificia Universidad Javeriana de Cali
+
+--
+
+## Programa de Economía
+---
+
+
+
+
+.pull-left[
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+
+&lt;img src="img/gif1.gif" width="110%" /&gt;
+]
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+
+
+.pull-right[
+# Orlando Joaqui-Barandica
+### [www.joaquibarandica.com](https://www.joaquibarandica.com)
+ *PhD.(C) in Industrial Engineering* 
+ 
+ *MSc. Applied Economics*
+ 
+ *BSc. Statistics*
+]
+
+---
+
+name: menu
+background-image: url("img/back2.jpg")
+background-size: cover
+class: left, middle, inverse
+
+# Contenido
+
+----
+
+
+.pull-left[
+
+### <i class="fa fa-dice-d6" role="presentation" aria-label="dice-d6 icon"></i> [Causalidad](#Causalidad)
+
+### <i class="fa fa-database" role="presentation" aria-label="database icon"></i> [Tipos de datos](#TipoDatos)
+
+### <i class="fa fa-dice-d6" role="presentation" aria-label="dice-d6 icon"></i> [Análisis de regresión lineal](#LinealSimple)
+
+### <i class="fa fa-sort-numeric-up" role="presentation" aria-label="sort-numeric-up icon"></i> [MCO](#MCO)
+
+]
+
+
+.pull-right[
+
+
+
+### <i class="fa fa-upload" role="presentation" aria-label="upload icon"></i> [Propiedades algebraicas de los estimadores](#propiedades)
+
+### <i class="fa fa-broom" role="presentation" aria-label="broom icon"></i> [Supuestos modelo clásico de regresión lineal](#supuestos)
+
+
+### <i class="fa fa-sort-numeric-up" role="presentation" aria-label="sort-numeric-up icon"></i> [Coef. de determinación](#determinacion)
+
+### <i class="fa fa-upload" role="presentation" aria-label="upload icon"></i> [Fuentes de variación](#variacion)
+
+
+
+]
+
+---
+
+
+name: Causalidad
+class: inverse, center, middle
+
+# <i class="fa fa-dice-d6" role="presentation" aria-label="dice-d6 icon"></i>
+# Causalidad
+----
+
+.right[
+.bottom[
+####  [<i class="fa fa-bell" role="presentation" aria-label="bell icon"></i>](#menu)
+]
+]
+
+---
+
+# Causalidad
+
+.font120[.green[A pesar de que el análisis de regresión tiene que ver con la dependencia de una variable respecto de otras variables, esto no implica causalidad necesariamente.]]
+
+&lt;br&gt;
+.pull-left[
+
+&gt; .font120[`Una relación estadística, por más fuerte y sugerente que sea, nunca podrá establecer una conexión causal: nuestras ideas de causalidad deben provenir de estadísticas externas y, en último término, de una u otra teoría `]
+
+]
+
+.pull-right[
+.center[
+&lt;img src="https://media.giphy.com/media/l2Je34w7WkZ84f3os/giphy.gif" width="95%"/&gt;
+]
+
+
+]
+
+---
+
+class: inverse, center, middle
+background-image: url(https://media.giphy.com/media/VdKEHcPsjrlQv9Cv5n/giphy.gif)
+background-size: cover
+
+
+# Causalidad
+
+&lt;br&gt;
+&lt;br&gt;
+
+## En un ejemplo de rendimiento del cultivo, no hay una razón estadística para suponer que la lluvia no depende del rendimiento del cultivo.
+
+
+## Considerar que el rendimiento del cultivo depende de la lluvia (entre otras cosas) se debe a cuestiones no estadísticas: el sentido común indica que la relación no puede ser a la inversa, pues no es posible controlar la lluvia mediante el rendimiento del cultivo.
+
+---
+
+
+# Causalidad
+
+&gt; .font140[En la mayoría de las pruebas de teorías económicas, así como en la evaluación de políticas públicas, **el objetivo de los economistas** es inferir que una variable (por ejemplo, la educación) .orange[**tiene un efecto causal**] sobre otra variable (por ejemplo, la productividad de los trabajadores).]
+
+&lt;br&gt; 
+&gt; .font140[Encontrar simplemente una relación entre dos o más variables puede ser sugestivo, pero no concluyente, a menos que pueda establecerse causalidad.]
+
+&lt;br&gt;
+
+&gt; .font140[El concepto **ceteris paribus** —.orange[**"si todos los demás factores relevantes permanecen constantes"**]— tiene un papel importante en el análisis causal.]
+
+---
+
+
+# Causalidad
+
+
+.font180[$$salario = f(educ, exper, capacitación)$$]
+
+.font120[.orange[En este ejemplo, interesa conocer el efecto de una semana más de capacitación sobre el salario, cuando los demás componentes en particular Educ y Exper, permanecen constantes.]]
+
+- .font130[Si se logran mantener constantes todos los demás factores relevantes...]
+- .font130[... y se encuentra una relación entre **capacitación laboral** y **salarios**]
+
+--
+
+.center[
+### Puede concluirse que tal capacitación tiene un efecto causal sobre la productividad de los trabajadores.
+]
+
+.font120[A pesar de que esto puede parecer bastante sencillo, aun ya en este nivel inicial debe ser claro que, .green[**salvo en casos muy especiales, no será posible mantener, literalmente, todo lo demás sin cambio.**]]
+
+
+---
+
+# Causalidad
+
+.font120[La pregunta fundamental en la mayor parte de los estudios empíricos es: ]
+
+&lt;br&gt;
+.center[
+## ¿se han mantenido constantes suficientes factores para que se justifique la causalidad?
+]
+
+&lt;br&gt;
+
+- .font130[En la mayoría de los casos, las hipótesis en las ciencias sociales son de carácter ceteris paribus, es decir, para estudiar una relación entre dos variables todos los demás factores relevantes deben mantenerse constantes.]
+
+- .font130[En las ciencias sociales, dado el carácter no experimental de la mayor parte de los datos que suelen recolectarse, hallar relaciones causales no es una tarea fácil.]
+
+
+---
+
+class: center, middle
+
+# Datos experimentales `\(\neq\)` Datos no experimentales
+
+.font200[🚩🚩🚩]
+
+---
+
+name: TipoDatos
+class: inverse, center, middle
+
+# <i class="fa fa-database" role="presentation" aria-label="database icon"></i>
+# Tipos de datos
+----
+
+.right[
+.bottom[
+####  [<i class="fa fa-bell" role="presentation" aria-label="bell icon"></i>](#menu)
+]
+]
+
+---
+
+
+# Tipos de datos
+
+.pull-left[
+### Las bases de datos económicos pueden ser de diversos tipos. 
+
+.font130[
+&gt;Aunque algunos métodos econométricos pueden ser empleados, con alguna o ninguna pequeña modificación, para distintos tipos de bases de datos, las características especiales de algunas bases de datos deben ser tomadas en cuenta y aprovecharse.]
+]
+
+.pull-right[
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+* ###Datos de corte transversal
+* ###Datos de serie de tiempo
+* ###Combinación de cortes transversales
+]
+
+---
+
+
+name: LinealSimple
+class: inverse, center, middle
+
+# <i class="fa fa-database" role="presentation" aria-label="database icon"></i>
+# Análisis de regresión lineal
+----
+
+.right[
+.bottom[
+####  [<i class="fa fa-bell" role="presentation" aria-label="bell icon"></i>](#menu)
+]
+]
+
+
+
+
+---
+
+# Análisis de regresión lineal
+
+&lt;br&gt;
+
+El objetivo del análisis de regresión es el de construir una función que aproxime de la mejor manera el comportamiento de una variable aletoaria `\((Y)\)` a través del conocimiento previo del valor de una variable explicativa `\((X)\)`, mediante una expresión lineal como la siguiente:
+
+&lt;br&gt;
+
+.font180[$$Y = \beta_0 + \beta_1X$$]
+
+&lt;br&gt;
+
+&gt; - Y: es llamada la variable de respuesta o dependiente
+&gt; - X: es llamada la variable predictora o independiente
+&gt; - `\(\beta_0\)`: es el intercepto de la linea con el eje `\(Y\)`
+&gt; - `\(\beta_1\)`: es la pendiente de la linea de regresión
+
+
+
+---
+
+class: center
+
+## Este modelo supone una **asociación lineal** entre las variables de estudio, por tanto antes de empezar, esta relación debe ser valorada
+
+
+.pull-left[
+
+![](Class_3_files/figure-html/unnamed-chunk-2-1.png)&lt;!-- --&gt;
+
+
+Correlación entre `Petal.Length` y `Petal.Width` 0.96
+
+
+]
+
+
+
+.pull-right[
+
+![](Class_3_files/figure-html/unnamed-chunk-3-1.png)&lt;!-- --&gt;
+
+
+
+]
+
+
+---
+
+# Análisis de regresión lineal
+
+&lt;br&gt;
+
+El análisis de regresión se relaciona en gran medida con la estimación o predicción de la .orange[**media (de la población) o valor promedio de la variable dependiente,**] con base en los valores conocidos o fijos de las variables explicativas.
+
+&lt;br&gt;
+
+&gt; Las observaciones de la variable `\(Y\)` (dependiente) se asumen aleatorias de una distribución con media `\(E(Y|X=x)\)`. 
+
+&gt; Las desviaciones de las observaciones `\(y_i\)` de la `\(E(Y|X=x)\)` se tienen en cuenta adicionando un error aleatorio `\(u_i\)` al siguiente modelo:
+
+.font180[$$y_i = \beta_0 + \beta_1 x_i + u_i$$]
+
+
+---
+
+# Ejemplo
+
+Estos datos se refieren a la población total de 60 familias de una comunidad hipotética, así como a su ingreso semanal `\((X)\)` y su gasto de consumo semanal `\((Y)\)`, en dólares. Las 60 familias se dividen en 10 grupos de ingresos (de 80 dólares a 260); asimismo, aparecen los gastos semanales de cada familia de los diversos grupos. Por consiguiente, hay 10 valores fijos de `\(X\)` y los correspondientes valores `\(Y\)` para cada valor `\(X\)`; así, hay 10 subpoblaciones `\(Y\)`.
+
+
+.center[
+
+&lt;img src="img/ejm1.jpg" width="70%"/&gt;
+
+]
+
+
+---
+
+# Ejemplo
+
+&gt; En total hay 10 valores medios para las 10 subpoblaciones de Y. A estos valores medios se les llama valores esperados condicionales: `\(E(Y|X)\)`.
+
+&lt;br&gt;
+
+.pull-left[
+
+Es importante distinguir entre los valores esperados condicionales y el valor esperado incondicional: `\(E(Y)\)`.
+
+
+`$$E(Y|X) \neq E(Y)$$`
+
+
+
+Si sumamos los consumos semanales de las 60 familias que forman la población y dividimos este número entre 60, obtendremos la cantidad de 121.20 dólares (7272/60), que es el .orange[**valor de la media incondicional**], o esperada, del consumo semanal, `\(E(Y)\)`.
+
+]
+
+.pull-right[
+
+.center[
+
+&lt;img src="https://media.giphy.com/media/hv53DaYcXWe3nRbR1A/giphy.gif" width="70%"/&gt;
+
+]
+
+]
+
+
+---
+
+&lt;br&gt;&lt;br&gt;
+
+&lt;img src="img/ejm2.jpg" width="90%"/&gt;
+
+### Esta figura muestra que para cada X (es decir, el nivel de ingresos) existe una población de valores Y (consumo semanal) que se distribuyen alrededor de la media (condicional) de dichos valores Y.
+
+
+---
+
+
+# ¿Qué se puede decir sobre la relación entre el consumo de una familia y un nivel determinado de ingresos?
+
+&lt;br&gt;
+
+Bajo el nivel de ingresos de `\(X_i\)`, el consumo de una familia en particular se agrupa alrededor del consumo promedio de todas las familias en ese nivel de `\(X_i\)`, es decir, alrededor de su esperanza condicional.
+
+&lt;br&gt;
+
+`$$U = Y - E(Y|X)$$`
+
+o
+
+`$$Y = E(Y|X) + U$$`
+
+&lt;br&gt;
+
+donde la desviación `\(U\)` es una variable aleatoria no observable que adopta valores positivos o negativos. Técnicamente, `\(U\)` se conoce como .orange[**perturbación estocástica o término de error estocástico**]
+
+
+---
+
+
+# De esta ecuación:
+
+&lt;br&gt;
+
+.font200[$$Y = E(Y|X) + U$$]
+
+
+### Se puede decir que el gasto de una familia en particular, según su nivel de ingreso, se expresa como la suma de dos componentes:
+
+
+&lt;br&gt;
+
+&gt; - `\(E(Y|X)\)` : que es simplemente la media del consumo de todas las familias con el mismo nivel de ingreso. Este componente se conoce como componente sistemático, o determinista.
+
+
+&gt; - `\(U\)` : que es el componente aleatorio, o no sistemático.
+
+
+---
+
+# Enfoque Estadistico: Descomposición ortogonal
+
+Sea `\(Y\)` una variable aleatoria con segundo momento finito, es decir, `\(E(|Y|^2) &lt; \infty\)`, y un conjunto de información D; entonces siempre podemos encontrar una descomposición de `\(Y\)` como la siguiente:
+
+
+.font180[$$Y = E(Y|D) + U$$]
+
+
+dónde el conjunto de información es `\(D : (X = x)\)`; por tanto `\(Y = E(Y|X) + U\)` 
+
+&lt;br&gt;
+
+dónde `\(E(Y | X)\)` es una función arbitraria.
+
+
+---
+
+# Enfoque Estadistico: Descomposición ortogonal
+
+
+&lt;br&gt;
+
+- `\(E(Y|X)\)`: Componente Sistemático
+- `\(U\)`: Componente no sistemático
+
+La existencia de dicha descomposición está garantizada siempre que `\(E(|Y|^2) &lt; \infty\)`
+
+&lt;br&gt;
+
+### Ambos componentes de `\(Y\)` deben satisfacer las siguientes propiedades:
+
+- `\(E(U|X) = 0\)`
+- `\(E(U^2|X) = Var(Y|X)&lt; \infty\)`
+- `\(E(U.E[Y|X])=0\)`
+
+
+
+---
+
+
+# Enfoque Estadístico: Descomposición ortogonal
+
+
+Con información de `\(X\)` podemos descomponer la variable `\(Y\)` en dos partes, pero no hay una .orange[**teoría económica**] detrás; por tanto no dice si hay relaciones de `causalidad` entre las variables.
+
+&lt;br&gt;
+
+.pull-left[
+
+- Las variables X generaran parcialmente a Y.
+
+- Y causa (o genera) las variables X.
+
+- o bien, que hay alguna otra causa común (y quizá desconocida) que genera conjuntamente tanto a Y como a X.
+
+]
+
+.pull-right[
+
+&lt;img src="https://media.giphy.com/media/VmM6OYEREouic/giphy.gif" width="90%"/&gt;
+
+]
+
+---
+
+# Enfoque Económico: Relación "causal"
+
+
+Se desea que la descomposición estadística sea reflejo de las relaciones teóricas entre `\(X\)` y `\(Y\)`.
+
+
+### Ejemplo
+
+**Y** (por ejemplo el .orange[**consumo**]) está generado por una función de las variables **X** (por ejemplo una función de la .orange[**renta**]) junto a otras causas distintas de la renta (**U**).
+
+
+`$$Y_n = h(X) + U_n$$`
+`$$Y_n = h(1, X_1, X_2, ..., X_k) + U_n$$`
+
+* **Y**: .orange[**Variable Endógena.**] Se determina su valor o características a través del modelo 
+
+* **X**: .orange[**Variables Exógenas o de control**]. Vienen dadas de manera externa al modelo, se tiene la capacidad de "alterar" su valor para, a través del modelo, controlar `\(Y\)`.
+
+* **U**: .orange[**Perturbación.**] Efecto conjunto de otras variables o circunstancias que influyen en `\(Y\)` y no observamos.
+
+
+---
+
+
+name: MCO
+class: inverse, center, middle
+
+# <i class="fa fa-database" role="presentation" aria-label="database icon"></i>
+# Mínimos cuadrados ordinarios
+----
+
+.right[
+.bottom[
+####  [<i class="fa fa-bell" role="presentation" aria-label="bell icon"></i>](#menu)
+]
+]
+
+---
+
+
+# Modelo de regresión lineal
+
+&lt;br&gt;
+&lt;br&gt;
+
+Modelo especial en el que la descomposición ortogonal
+
+&lt;br&gt;
+
+
+.font200[$$Y = E(Y|X) + U$$]
+
+&lt;br&gt;
+
+
+&gt; Es tal que `\(E(Y|X)\)` es una función lineal de `\(x_n\)`
+
+&gt; `\(Var(Y|X)\)` es constante.
+
+
+---
+
+# Modelo de regresión lineal
+
+&lt;br&gt;
+
+.pull-left[
+
+&gt; .font140[Hay .orange[tres supuestos generales] de un modelo econométrico que garantizan la existencia de una descomposición ortogonal como la del modelo clásico de regresión lineal.]
+
+]
+
+.pull-right[
+
+.center[
+
+## - Linealidad
+
+## - Exogeneidad estricta
+
+## - Perturbaciones esféricas
+
+]
+
+]
+
+---
+
+
+
+# MCO
+
+
+.font140[En el análisis de regresión lineal el objetivo es utilizar los datos para trazar una línea que represente mejor la relación entre dos variables.]
+
+.pull-left[
+
+.center[
+
+### Ya que se puede trazar más de una recta que razonablemente se ajuste a la distribución de los datos, es preferible utilizar el método de los **mínimos cuadrados** que resulta en una sola y mejor línea de regresión *.orange[(Recta del mejor ajuste)]*.
+]
+]
+
+.pull-right[
+&lt;br&gt;
+.center[
+&lt;img src="https://media.giphy.com/media/W0R3W6eC7lkuOZYCYU/giphy.gif" width="70%"/&gt;
+]
+]
+
+&gt; **Mínimos Cuadrados Ordinarios (MCO):** El objetivo de este procedimiento es estimar los parámetros tal que la suma de cuadrados (SC) de las diferencias entre las observaciones (valores reales) y la línea recta estimada sea mínima (Min SCError).
+
+
+
+---
+
+# MCO
+
+Si lo que interesa es minimizar la suma de cuadrados del error...
+
+
+.center[
+### ¿Qué es el error?
+]
+
+--
+
+.font1800[$$\hat{e}_i = y_i - \hat{y}_i$$]
+
+### Entonces, interesa...
+
+
+.pull-left[
+.center[
+&lt;img src="img/Imagen7.jpg" width="90%"/&gt;
+]
+]
+
+.pull-right[
+
+&lt;br&gt;
+`$$SCE = \sum_{i=1}^n (y_i - \hat{y}_i)^2$$`
+]
+
+---
+
+# MCO
+
+### Minimizar SCE:
+
+`$$SCE = \sum_{i=1}^n (y_i - \hat{y}_i)^2 = \sum_{i=1}^n (y_i - (\hat{\beta_0} + \hat{\beta_1}x_i))^2$$`
+
+
+`$$Min SCE =  \frac{\partial SCE}{\partial \hat{\beta_j}}$$`
+
+--
+
+### Ecuaciones normales:
+
+
+`$$\sum_{i=1}^n y_i = n \hat{\beta_0} + \hat{\beta_1} \sum_{i=1}^n x_i$$`
+`$$\sum_{i=1}^n x_i y_i = \beta_0 \sum_{i=1}^n x_i + \hat{\beta_1} \sum_{i=1}^n x_i^2$$`
+
+---
+
+# MCO
+
+### Tarea: Demostrar. 
+
+.font140[.orange[A partir de las ecuaciones normales llegar a:]]
+
+&lt;br&gt;
+
+`$$\hat{\beta_0} = \bar{y} - \hat{\beta_1}\bar{x}$$`
+
+&lt;br&gt;
+&lt;br&gt;
+
+
+`$$\begin{align}
+\hat{\beta_1} &amp; = &amp; \frac{\sum_{i=1}^n x_i y_i - n \bar{x}\bar{y}}{\sum_{i=1}^n x_i^2 - n\bar{x}^2}   \nonumber \\
+ &amp; = &amp; r \left( \frac{S_y}{S_x}\right)  \nonumber \\
+ &amp; = &amp; \frac{cov(x,y)}{V(x)}
+\end{align}$$`
+
+
+---
+
+#MCO 
+
+.font150[Una vez que se han determinado las estimaciones por MCO del intercepto y de la pendiente, se obtiene la línea de regresión de MCO.]
+
+&lt;br&gt;
+
+`$$E(Y/X) = \hat{\beta_0} + \hat{\beta_1}{X}$$`
+
+`$$\hat{Y} = \hat{\beta_0} + \hat{\beta_1}{X}$$`
+
+&lt;br&gt;
+&lt;br&gt;
+
+&gt; - **El intercepto,** `\(\hat{\beta_0}\)` es el valor predicho de Y cuando `\(X = 0\)`, aunque en algunos casos no tiene sentido hacer `\(X = 0\)`.
+
+&gt; - **La pendiente,** `\(\hat{\beta_1}\)` es de primordial interés, pues indica la cantidad en la que cambia `\(\hat{Y}\)` cuando X se incrementa en una unidad.
+
+
+
+---
+
+name: propiedades
+class: inverse, center, middle
+
+# <i class="fa fa-database" role="presentation" aria-label="database icon"></i>
+# Propiedades algebraicas de los estimadores
+----
+
+.right[
+.bottom[
+####  [<i class="fa fa-bell" role="presentation" aria-label="bell icon"></i>](#menu)
+]
+]
+
+---
+
+
+# MCO 
+
+### Propiedades algebraicas de los estimadores
+
+
+Las estimaciones de MCO y sus correspondientes estadísticos tienen varias propiedades útiles.
+
+&lt;br&gt;
+
+&gt; 1️⃣ La suma, y por tanto el promedio muestral de los residuales de MCO, es cero. Matemáticamente,
+
+
+`$$\sum \hat{u} = 0$$`
+
+
+&gt; 2️⃣ La covarianza muestral de los regresores y los residuales de MCO es cero.
+
+`$$Cov(x,u) = 0$$`
+
+
+### Demostrar lo anterior. 
+
+.orange[Recuerde la fórmula de la covarianza:] `\(cov(x,y) = E[(x - E(x))(y - E(y))]\)`
+
+
+---
+
+
+# MCO
+
+### Propiedades algebraicas de los estimadores
+
+`$$\begin{align}
+cov(u,x) &amp;=&amp; E[(u - E(u))(x - E(x))] \nonumber \\
+&amp;=&amp; E[u (x - E(x)] \nonumber  \\
+&amp;=&amp; E[ux - uE(x)] \nonumber  \\
+&amp;=&amp; E(ux) - E(u)E(x) \nonumber \\
+&amp;=&amp; 0 - 0E(x) \nonumber \\
+&amp;=&amp; 0 \nonumber
+\end{align}$$`
+
+o
+
+`$$\begin{align}
+cov(u,x) &amp;=&amp; E(ux) - E(u)E(x) \nonumber \\
+0 &amp;=&amp; E(ux) - 0E(x) \nonumber \\
+cov(u,x) &amp;=&amp; E(ux) = 0 \nonumber
+\end{align}$$`
+
+
+---
+
+# MCO
+
+### Propiedades algebraicas de los estimadores
+
+
+&gt; 3️⃣ El punto `\((\bar{x},\bar{y})\)` se encuentra siempre sobre la línea de regresión de MCO.
+
+`$$\hat{Y} = \hat{\beta_0} + \hat{\beta_1}{X}$$`
+
+`$$\bar{Y} = \hat{\beta_0} + \hat{\beta_1}\bar{X}$$`
+
+.center[
+&lt;img src="img/promxy.jpg" width="25%"/&gt;
+]
+
+---
+
+name: supuestos
+class: inverse, center, middle
+
+# <i class="fa fa-database" role="presentation" aria-label="database icon"></i>
+# Supuestos modelo clásico de regresión lineal
+----
+
+.right[
+.bottom[
+####  [<i class="fa fa-bell" role="presentation" aria-label="bell icon"></i>](#menu)
+]
+]
+
+---
+
+# MCO
+
+### Supuestos modelo clásico de regresión lineal
+
+
+El objetivo es no sólo obtener `\(\hat{\beta_0}\)` y `\(\hat{\beta_1}\)` sino también inferir los verdaderos `\({\beta_0}\)` y `\({\beta_1}\)`; por ejemplo, si quisiéramos saber cuán cerca está `\(\hat{Y}\)` de la verdadera `\(E(Y/X)\)`.
+
+
+&lt;br&gt;
+
+&gt; 👉️ **Supuesto 1.** .orange[Modelo de regresión lineal]
+
+&lt;br&gt;
+
+El modelo de regresión es lineal en los parámetros, aunque puede o no ser lineal en las variables.
+
+### Ejemplo:
+
+`$$Y = \beta_0 + \beta_1{X} + u$$`
+`$$Y = \beta_0 + \beta_1{X^2} + u$$`
+
+---
+
+# MCO
+
+### Supuestos modelo clásico de regresión lineal
+
+&lt;br&gt;
+
+&gt; 👉️ **Supuesto 2.** .orange[Valores fijos de X, o valores de X independientes del término de error:]
+
+&lt;br&gt;
+
+
+Los valores que toma la regresora `\(X\)` pueden considerarse fijos en muestras repetidas (el caso de la regresora fija), o haber sido muestreados junto con la variable dependiente `\(Y\)` (el caso de la regresora estocástica).
+
+&lt;br&gt;
+
+En el segundo caso se supone que la(s) variable(s) `\(X\)` y el término de error son independientes.
+
+&lt;br&gt;
+
+.font160[$$cov(x,u) = 0$$]
+
+
+
+---
+
+# MCO
+
+### Supuestos modelo clásico de regresión lineal
+
+&lt;br&gt;
+
+&gt; 👉️ **Supuesto 3.** .orange[El valor medio de la perturbación ui es igual a cero]
+
+&lt;br&gt;
+
+Dado el valor de `\(X_i\)`, la media o el valor esperado del término de perturbación aleatoria `\(u_i\)` es cero.
+
+&lt;br&gt;
+
+`$$E(u/x) = 0$$`
+
+
+si, `\(X\)` no es estocástica (aleatoria),
+
+&lt;br&gt;
+`$$E(u) = 0$$`
+
+
+---
+
+# MCO
+
+### Supuestos modelo clásico de regresión lineal
+
+&lt;br&gt;
+
+&gt; 👉️ **Supuesto 3.** .orange[El valor medio de la perturbación ui es igual a cero]
+
+&lt;br&gt;
+
+**Es importante señalar:**
+
+- El supuesto 3 implica que no hay sesgo de especificación o error de especificación en el modelo del análisis empírico.
+
+- También observe que si la media condicional de una variable aleatoria, dada otra variable aleatoria, es cero, la covarianza entre las dos variables es cero y, por tanto, las dos variables no están correlacionadas. 
+
+.center[
+### **X y u no están correlacionadas. --&gt; .orange[Exogeneidad estricta]**
+]
+
+
+
+---
+
+# MCO
+
+### Supuestos modelo clásico de regresión lineal
+
+&lt;br&gt;
+
+&gt; 👉️ **Supuesto 4.** .orange[Homoscedasticidad o varianza constante de u]
+
+
+La varianza del término de error, o de perturbación, es la misma sin importar el valor de `\(X\)`. Simbólicamente, tenemos que
+
+`$$\begin{align}
+var(u/x) &amp;=&amp; E[u - E(u/x)]^2 \nonumber \\
+&amp;=&amp; E[(u-E(u/x))(u-E(u/x))] \nonumber  \\
+&amp;=&amp; E[u^2] - 2E(u)E(u/x) + (E(u/x))^2 \\
+&amp;=&amp; E[u^2] - 2 (0)(0) + (0)^2 \\ 
+&amp;=&amp; E[u^2] \\
+&amp;=&amp; E[(y -\hat{y})^2] \\
+&amp;=&amp; \sigma^2 \nonumber
+\end{align}$$`
+
+Por el supuesto 3, `\(E(u|x) = 0\)` es la esperanza del error condicionado a `\(x\)`. 
+
+
+---
+
+# MCO
+
+### Supuestos modelo clásico de regresión lineal
+
+&lt;br&gt;
+
+&gt; 👉️ **Supuesto 5.** .orange[No hay autocorrelación entre las perturbaciones]
+
+
+&lt;br&gt;
+
+Dados dos valores cualesquiera de `\(X\)`, `\(X_i\)` y `\(X_j\)` `\((i \neq j )\)`, la correlación entre dos `\(u_i\)` y `\(u_j\)` cualesquiera `\((i \neq j )\)` es cero. 
+
+&lt;br&gt; 
+
+En pocas palabras, estas observaciones se muestrean de manera independiente.
+
+&lt;br&gt;
+
+`$$cov(u_i u_j / X_i X_j) = 0$$`
+
+---
+
+# MCO
+
+### Supuestos modelo clásico de regresión lineal
+
+&lt;br&gt;
+
+&gt; 👉️ **Supuesto 6.**  .orange[El número de observaciones **n** debe ser mayor que el número de parámetros por estimar]
+
+&lt;br&gt;
+
+.center[
+### Sucesivamente, el número de observaciones n debe ser mayor que el número de variables explicativas.
+]
+
+
+---
+
+# MCO
+
+### Supuestos modelo clásico de regresión lineal
+
+&lt;br&gt;
+
+&gt; 👉️ **Supuesto 7.**   .orange[La naturaleza de las variables X]
+
+&lt;br&gt;
+
+No todos los valores `\(X\)` en una muestra determinada deben ser iguales. Técnicamente, `\(var(X)\)` debe ser un número positivo. 
+
+Además, no puede haber valores atípicos de la variable `\(X\)`, es decir, valores muy grandes en relación con el resto de las observaciones.
+
+
+---
+
+# MCO
+
+### Errores estándar de los estimadores
+
+
+En estadística la precisión de un valor estimado se mide por su error estándar (ee).
+
+
+`$$var(\hat{\beta_1}) = \frac{\sigma^2}{\sum x_i^2}$$`
+
+`$$ee(\beta_1) = \frac{\sigma}{\sqrt{\sum x_i^2}}$$`
+
+Dónde, `\(\sigma^2\)` es la varianza asociada a `\(u\)` (Supuesto 4). .orange[**Note lo siguiente:**]
+
+- Dada `\(\sigma^2\)`, entre más grande sea la variación en los valores `\(X\)`, menor será la varianza de `\(\hat{\beta_1}\)` y, por tanto, mayor será la precisión con la cual estimar `\(\beta_1\)`.
+
+- Dado `\(\sum x_i^2\)` entre mayor sea la varianza de `\(\sigma^2\)`, mayor será la de `\(\beta_1\)`.
+
+- A medida que aumenta `\(n\)`, también es mayor la precisión para estimar `\(\beta_1\)`.
+
+
+---
+
+
+# Teorema de Gauss-Markov
+
+
+### Un estimador `\(\hat{\beta_1}\)` es el mejor estimador lineal insesgado (MELI) de `\(\beta_1\)` si cumple lo siguiente:
+
+&lt;br&gt;
+
+
+.pull-left[
+
+----
+
+&gt; - Es lineal, es decir, función lineal de una variable aleatoria, como la variable dependiente Y en el modelo de regresión.
+
+
+&gt; - Es insesgado, es decir, su valor promedio o esperado, `\(E(\hat{\beta_1})\)`, es igual al valor verdadero, `\({\beta_1}\)`
+
+
+&gt; - Tiene varianza mínima dentro de la clase de todos los estimadores lineales insesgados; un estimador insesgado con varianza mínima se conoce como estimador eficiente.
+
+
+----
+
+]
+
+
+.pull-right[
+
+.center[
+### Gauss-Markov
+
+
+&lt;img src="img/markov.jpg" width="70%"/&gt;
+]
+]
+
+---
+
+name: determinacion
+class: inverse, center, middle
+
+# <i class="fa fa-database" role="presentation" aria-label="database icon"></i>
+# Coeficiente de determinación
+----
+
+.right[
+.bottom[
+####  [<i class="fa fa-bell" role="presentation" aria-label="bell icon"></i>](#menu)
+]
+]
+
+---
+
+
+# Coeficiente de determinación
+
+
+Coeficiente de determinación `\(r^2\)`: Proporción de la variabilidad de `\(Y\)` que es posible explicar a través del modelo planteado, es decir, por la variación de la variable dependiente `\(X\)`:
+
+&lt;br&gt;
+
+`$$R^2 = r^2 \quad , \quad 0\leq R^2 \leq 1$$`
+&lt;br&gt;
+
+&gt; - Su cálculo es fácil, es el coeficiente de correlación al cuadrado.
+&gt; - Para interpretar mejor el coeficiente de determinación se debe convertir a porcentaje.
+
+
+&lt;br&gt;
+
+### ¿Con cuánta exactitud predice la ecuación de regresión a la variable `\(Y\)` mediante la variable `\(X\)`?
+
+&gt; Si fuera posible hacer predicciones **perfectas** entonces `\(R^2 = 100\%\)`, esto significa que la variable independiente explica o representa toda la variación de la variable dependiente
+
+---
+
+name: variacion
+class: inverse, center, middle
+
+# <i class="fa fa-database" role="presentation" aria-label="database icon"></i>
+# Fuentes de variación
+----
+
+.right[
+.bottom[
+####  [<i class="fa fa-bell" role="presentation" aria-label="bell icon"></i>](#menu)
+]
+]
+
+---
+
+
+
+# Fuentes de variación
+
+A medida que aumenta la fuerza de la relación lineal entre dos variables, aumenta el coeficiente de correlación y disminuye el error estándar de estimación, lo que indica que `\(S_{y.x}\)` y `\(r\)` están inversamente relacionados.
+
+&lt;br&gt;
+
+.pull-left[
+
+#### .orange[La variación total se divide en dos componentes:]
+
+
+----
+
+#### 1. (SCR) El que se deriva de la regresión (a su vez, explicado por la variable independiente)
+
+----
+
+#### 2. (SCE) El error o residual, que es la variación inexplicable
+
+----
+
+]
+
+.pull-right[
+
+&lt;img src="img/Imagen8.jpg" width="90%"/&gt;
+
+]
+
+---
+
+# Fuentes de variación
+
+.center[
+&lt;img src="img/Imagen10.jpg" width="40%"/&gt;
+]
+
+.pull-left[
+Recuerde que el coeficiente de determinación se define como el porcentaje de la variación total (SCT) explicado por la ecuación de regresión (SCR)... 
+
+Entonces en términos de la varición total como puede escribirse el `\(R^2\)` ?
+
+
+`$$R^2 =  \frac{SCR}{SCT} =  1 - \frac{SCE}{SCT}$$`
+
+]
+
+.pull-right[
+
+.orange[**Algunas fórmulas útiles:**]
+
+- `\(SCT = S_{yy} = V(Y)\)`
+- `\(SCR = r^2 SCT\)`
+- `\(SCE = SCT - SCR\)`
+- `\(R^2 = \frac{SCR}{SCT} = \frac{(S_{xy})^2}{S_{xx}S_{yy}}\)`
+
+]
+
+---
+
+
+class: inverse, center, middle
+background-color: #122140
+
+.pull-left[
+
+.center[
+&lt;br&gt;&lt;br&gt;
+
+# Gracias!!!
+
+&lt;br&gt;
+
+
+
+### ¿Preguntas?
+
+&lt;br&gt;
+
+
+&lt;img src="img/qr-code.png" width="49%" style="display: block; margin: auto;" /&gt;
+
+
+]
+
+
+]
+
+
+.pull-right[
+
+&lt;br&gt; 
+&lt;br&gt; 
+&lt;img style="border-radius: 50%;" src="img/avatar.png"
+width="150px"
+/&gt;
+
+### [www.joaquibarandica.com](https://www.joaquibarandica.com)
+
+<i class="fa fa-envelope" role="presentation" aria-label="envelope icon"></i> orlando.joaqui@javerianacali.edu.co
+
+&lt;img src="img/Logo.jpg" width="120%"&gt;
+
+]
+
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;
+
+
+
+
+
+
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

@@ -101,16 +101,13 @@ class: left, middle, inverse
 
 ### <i class="fa fa-upload" role="presentation" aria-label="upload icon"></i> [¿Qué es la econometría?](#Econometria)
 
-### <i class="fa fa-broom" role="presentation" aria-label="broom icon"></i> [Metodología de la Econometría](#Metodología)
+### <i class="fa fa-broom" role="presentation" aria-label="broom icon"></i> [Metodología de la Econometría](#Metodologia)
 
 ]
 
 
 .pull-right[
 
-### <i class="fa fa-dice-d6" role="presentation" aria-label="dice-d6 icon"></i> [Causalidad](#Causalidad)
-
-### <i class="fa fa-database" role="presentation" aria-label="database icon"></i> [Tipos de datos](#TipoDatos)
 
 ]
 
@@ -429,7 +426,7 @@ de modelos en econometría.
 ---
 
 
-name: Metodología
+name: Metodologia
 class: inverse, center, middle
 
 # <i class="fa fa-broom" role="presentation" aria-label="broom icon"></i>
@@ -634,159 +631,6 @@ Se diría que el error de predicción es de aproximadamente 174 000 millones de 
 ### Un modelo estimado sirve para fines de control o de políticas públicas. Mediante una mezcla apropiada de política fiscal y monetaria, el gobierno puede manejar la variable de control X para producir el nivel deseado de la variable objetivo Y.
 ]
 
-
-
----
-
-name: Causalidad
-class: inverse, center, middle
-
-# <i class="fa fa-dice-d6" role="presentation" aria-label="dice-d6 icon"></i>
-# Causalidad
-----
-
-.right[
-.bottom[
-####  [<i class="fa fa-bell" role="presentation" aria-label="bell icon"></i>](#menu)
-]
-]
-
----
-
-# Causalidad
-
-.font120[.green[A pesar de que el análisis de regresión tiene que ver con la dependencia de una variable respecto de otras variables, esto no implica causalidad necesariamente.]]
-
-&lt;br&gt;
-.pull-left[
-
-&gt; .font120[`Una relación estadística, por más fuerte y sugerente que sea, nunca podrá establecer una conexión causal: nuestras ideas de causalidad deben provenir de estadísticas externas y, en último término, de una u otra teoría `]
-
-]
-
-.pull-right[
-.center[
-&lt;img src="https://media.giphy.com/media/l2Je34w7WkZ84f3os/giphy.gif" width="95%"/&gt;
-]
-
-
-]
-
----
-
-class: inverse, center, middle
-background-image: url(https://media.giphy.com/media/VdKEHcPsjrlQv9Cv5n/giphy.gif)
-background-size: cover
-
-
-# Causalidad
-
-&lt;br&gt;
-&lt;br&gt;
-
-## En un ejemplo de rendimiento del cultivo, no hay una razón estadística para suponer que la lluvia no depende del rendimiento del cultivo.
-
-
-## Considerar que el rendimiento del cultivo depende de la lluvia (entre otras cosas) se debe a cuestiones no estadísticas: el sentido común indica que la relación no puede ser a la inversa, pues no es posible controlar la lluvia mediante el rendimiento del cultivo.
-
----
-
-
-# Causalidad
-
-&gt; .font140[En la mayoría de las pruebas de teorías económicas, así como en la evaluación de políticas públicas, **el objetivo de los economistas** es inferir que una variable (por ejemplo, la educación) .orange[**tiene un efecto causal**] sobre otra variable (por ejemplo, la productividad de los trabajadores).]
-
-&lt;br&gt; 
-&gt; .font140[Encontrar simplemente una relación entre dos o más variables puede ser sugestivo, pero no concluyente, a menos que pueda establecerse causalidad.]
-
-&lt;br&gt;
-
-&gt; .font140[El concepto **ceteris paribus** —.orange[**"si todos los demás factores relevantes permanecen constantes"**]— tiene un papel importante en el análisis causal.]
-
----
-
-
-# Causalidad
-
-
-.font180[$$salario = f(educ, exper, capacitación)$$]
-
-.font120[.orange[En este ejemplo, interesa conocer el efecto de una semana más de capacitación sobre el salario, cuando los demás componentes en particular Educ y Exper, permanecen constantes.]]
-
-- .font130[Si se logran mantener constantes todos los demás factores relevantes...]
-- .font130[... y se encuentra una relación entre **capacitación laboral** y **salarios**]
-
---
-
-.center[
-### Puede concluirse que tal capacitación tiene un efecto causal sobre la productividad de los trabajadores.
-]
-
-.font120[A pesar de que esto puede parecer bastante sencillo, aun ya en este nivel inicial debe ser claro que, .green[**salvo en casos muy especiales, no será posible mantener, literalmente, todo lo demás sin cambio.**]]
-
-
----
-
-# Causalidad
-
-.font120[La pregunta fundamental en la mayor parte de los estudios empíricos es: ]
-
-&lt;br&gt;
-.center[
-## ¿se han mantenido constantes suficientes factores para que se justifique la causalidad?
-]
-
-&lt;br&gt;
-
-- .font130[En la mayoría de los casos, las hipótesis en las ciencias sociales son de carácter ceteris paribus, es decir, para estudiar una relación entre dos variables todos los demás factores relevantes deben mantenerse constantes.]
-
-- .font130[En las ciencias sociales, dado el carácter no experimental de la mayor parte de los datos que suelen recolectarse, hallar relaciones causales no es una tarea fácil.]
-
-
----
-
-class: center, middle
-
-# Datos experimentales `\(\neq\)` Datos no experimentales
-
-.font200[🚩🚩🚩]
-
----
-
-name: TipoDatos
-class: inverse, center, middle
-
-# <i class="fa fa-database" role="presentation" aria-label="database icon"></i>
-# Tipos de datos
-----
-
-.right[
-.bottom[
-####  [<i class="fa fa-bell" role="presentation" aria-label="bell icon"></i>](#menu)
-]
-]
-
----
-
-
-# Tipos de datos
-
-.pull-left[
-### Las bases de datos económicos pueden ser de diversos tipos. 
-
-.font130[
-&gt;Aunque algunos métodos econométricos pueden ser empleados, con alguna o ninguna pequeña modificación, para distintos tipos de bases de datos, las características especiales de algunas bases de datos deben ser tomadas en cuenta y aprovecharse.]
-]
-
-.pull-right[
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-* ###Datos de corte transversal
-* ###Datos de serie de tiempo
-* ###Combinación de cortes transversales
-]
 
 ---
 
