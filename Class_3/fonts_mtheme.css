@@ -71,7 +71,7 @@ body {
 .orange { color: #DB7227; }
 .purple { color: #702963; }
 .gray { color: gray; }
-.grey { color: gray; }
+.grey { color: #d3d3d3; }
 
 .bold { font-weight: bold; }
 .bolder { font-weight: bolder; }

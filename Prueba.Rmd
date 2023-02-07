@@ -9,37 +9,25 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
+# MCO
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+### Errores estándar de los estimadores
 
 
-
-library(tidyverse)
-
-library(plotly)
+En estadística la precisión de un valor estimado se mide por su error estándar (ee).
 
 
-Migrafico1 <- ggplot(iris, aes(x=Sepal.Length, y = Sepal.Width)) +
-  geom_point()
+$$var(\hat{\beta_1}) = \frac{\sigma^2}{\sum x_i^2}$$
+
+$$ee(\beta_1) = \frac{\sigma}{\sqrt{\sum x_i^2}}$$
+
+Dónde, $\sigma^2$ es la varianza asociada a $u$ (Supuesto 4). .orange[**Note lo siguiente:**]
+
+- Dada $\sigma^2$, entre más grande sea la variación en los valores $X$, menor será la varianza de $\hat{\beta_1}$ y, por tanto, mayor será la precisión con la cual estimar $\beta_1$.
+
+- Dado $\sum x_i^2$ entre mayor sea la varianza de $\sigma^2$, mayor será la de $\beta_1$.
+
+- A medida que aumenta $n$, también es mayor la precisión para estimar $\beta_1$.
 
 
-
-ggplotly(Migrafico1)
-
-```
-
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+---

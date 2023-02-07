@@ -1072,13 +1072,13 @@ Además, no puede haber valores atípicos de la variable `\(X\)`, es decir, valo
 
 ----
 
-&gt; - Es lineal, es decir, función lineal de una variable aleatoria, como la variable dependiente Y en el modelo de regresión.
+&gt; - Es lineal, es decir, función lineal de una variable aleatoria, como la variable dependiente `\(Y\)` en el modelo de regresión.
 
 
 &gt; - Es insesgado, es decir, su valor promedio o esperado, `\(E(\hat{\beta_1})\)`, es igual al valor verdadero, `\({\beta_1}\)`
 
 
-&gt; - Tiene varianza mínima dentro de la clase de todos los estimadores lineales insesgados; un estimador insesgado con varianza mínima se conoce como estimador eficiente.
+&gt; - Tiene varianza mínima dentro de la clase de todos los estimadores lineales insesgados; un estimador insesgado con varianza mínima se conoce como **estimador eficiente**.
 
 
 ----
@@ -1210,6 +1210,155 @@ Entonces en términos de la varición total como puede escribirse el `\(R^2\)` ?
 - `\(R^2 = \frac{SCR}{SCT} = \frac{(S_{xy})^2}{S_{xx}S_{yy}}\)`
 
 ]
+
+
+---
+
+# Ejercicios en clase
+
+## .orange[Discutir]
+
+&gt; .font160[.green[**1).**]] Se le pide que realice un estudio para determinar si grupos de clase pequeños contribuyen a un mejor desempeño de los estudiantes de cuarto grado.
+
+&gt; .font160[.grey[**a).**]] Si pudiera realizar cualquier experimento que deseara, ¿qué haría? Explique con claridad.
+
+&gt; .font160[.grey[**b).**]] Siendo más realistas, suponga que puede obtener datos observacionales de varios miles de estudiantes de cuarto grado de un determinado estado. 
+
+&gt; - Puede conocer el tamaño de sus grupos y las calificaciones estandarizadas obtenidas en el examen final. ¿Por qué puede esperarse una correlación negativa entre el tamaño de los grupos y las puntuaciones en el examen final?
+
+
+&gt; .font160[.grey[**c).**]] Una correlación negativa, ¿indicaría necesariamente que tamaños de grupo menores causan
+un mejor desempeño?
+
+
+---
+
+# Ejercicios en clase: .orange[Estimar]
+
+.pull-left[
+
+----
+
+
+```c1
+
+
+library(wooldridge)
+library(tidyverse)
+
+
+data("ceosal1")
+
+
+modelo1 &lt;- lm(salary ~ roe, ceosal1)
+
+summary(modelo1)
+
+```
+
+
+----
+
+.center[**font160[.green[2).]] ¿Cómo se interpreta esta ecuación?**]
+
+.orange[$$\hat{salary} = 963,19 + 18,501 roe$$]
+
+
+- Primero, si el rendimiento sobre el capital es cero, `\(roe = 0\)`, entonces el sueldo que se predice corresponde al intercepto, 963.191, es decir, $963,191, dado que salary se mide en miles.
+
+]
+
+
+.pull-right[
+
+.font70[
+
+```
+## 
+## Call:
+## lm(formula = salary ~ roe, data = ceosal1)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -1160.2  -526.0  -254.0   138.8 13499.9 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   963.19     213.24   4.517 1.05e-05 ***
+## roe            18.50      11.12   1.663   0.0978 .  
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 1367 on 207 degrees of freedom
+## Multiple R-squared:  0.01319,	Adjusted R-squared:  0.008421 
+## F-statistic: 2.767 on 1 and 207 DF,  p-value: 0.09777
+```
+]
+
+- Luego, el cambio que se predice para el sueldo en función del cambio en el roe se expresa como: 
+
+`$$\vartriangle \hat{salary} = 18,501 (\vartriangle roe)$$`
+
+Esto significa que cuando el rendimiento sobre capital aumente en un punto porcentual, `\(roe = 1\)`, se predice que el sueldo variará aproximadamente 18.5, es decir $18,500.
+
+]
+
+
+---
+
+# Ejercicios en clase: .orange[Estimar]
+
+.pull-left[
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+&lt;img src="img/roe1.jpg" width="100%"/&gt;
+
+]
+
+
+.pull-right[
+
+### La estimación también la puedo utilizar para comparar los sueldos que se predicen para diferentes valores del *roe*.
+
+&gt; Suponga que `\(roe = 30\)`
+
+
+.orange[$$\hat{salary} = 963,19 + 18,501 (30) =  1,518,221$$]
+
+
+&gt; Un poco más de $1.5 millones
+
+Esto no significa que si un CEO está en una empresa con `\(roe = 30\)`, implique que gane  $ 1,518,221
+
+.center[**Hay otros factores que afectan el sueldo!!**]
+
+.green[**Esto solo es una PREDICCIÓN**] a partir de la línea de regresión.
+
+]
+
+
+---
+
+# Ejercicios en clase: .orange[Estimar]
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+
+&gt; .font160[.green[**3).**]]  Utilice la base de datos `WAGE1` y estime un modelo para la población de personas en la fuerza de trabajo en 1976, en dónde, utilice como variable respuesta o endógena `wage`, y predictora o exógena `educ`.
+
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+&gt; .font160[.green[**4).**]] Interprete el `\(R^2\)` para las dos estimaciones anteriores. ¿Qué ocurre?
+
 
 ---
 

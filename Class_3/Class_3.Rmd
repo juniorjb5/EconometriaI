@@ -1095,13 +1095,13 @@ Además, no puede haber valores atípicos de la variable $X$, es decir, valores 
 
 ----
 
-> - Es lineal, es decir, función lineal de una variable aleatoria, como la variable dependiente Y en el modelo de regresión.
+> - Es lineal, es decir, función lineal de una variable aleatoria, como la variable dependiente $Y$ en el modelo de regresión.
 
 
 > - Es insesgado, es decir, su valor promedio o esperado, $E(\hat{\beta_1})$, es igual al valor verdadero, ${\beta_1}$
 
 
-> - Tiene varianza mínima dentro de la clase de todos los estimadores lineales insesgados; un estimador insesgado con varianza mínima se conoce como estimador eficiente.
+> - Tiene varianza mínima dentro de la clase de todos los estimadores lineales insesgados; un estimador insesgado con varianza mínima se conoce como **estimador eficiente**.
 
 
 ----
@@ -1233,6 +1233,147 @@ $$R^2 =  \frac{SCR}{SCT} =  1 - \frac{SCE}{SCT}$$
 - $R^2 = \frac{SCR}{SCT} = \frac{(S_{xy})^2}{S_{xx}S_{yy}}$
 
 ]
+
+
+---
+
+# Ejercicios en clase
+
+## .orange[Discutir]
+
+> .font160[.green[**1).**]] Se le pide que realice un estudio para determinar si grupos de clase pequeños contribuyen a un mejor desempeño de los estudiantes de cuarto grado.
+
+> .font160[.grey[**a).**]] Si pudiera realizar cualquier experimento que deseara, ¿qué haría? Explique con claridad.
+
+> .font160[.grey[**b).**]] Siendo más realistas, suponga que puede obtener datos observacionales de varios miles de estudiantes de cuarto grado de un determinado estado. 
+
+> - Puede conocer el tamaño de sus grupos y las calificaciones estandarizadas obtenidas en el examen final. ¿Por qué puede esperarse una correlación negativa entre el tamaño de los grupos y las puntuaciones en el examen final?
+
+
+> .font160[.grey[**c).**]] Una correlación negativa, ¿indicaría necesariamente que tamaños de grupo menores causan
+un mejor desempeño?
+
+
+---
+
+# Ejercicios en clase: .orange[Estimar]
+
+.pull-left[
+
+----
+
+```{c1, warning=FALSE, message=FALSE, eval=FALSE, echo=TRUE}
+
+
+library(wooldridge)
+library(tidyverse)
+
+
+data("ceosal1")
+
+
+modelo1 <- lm(salary ~ roe, ceosal1)
+
+summary(modelo1)
+
+
+
+```
+
+
+----
+
+.center[**font160[.green[2).]] ¿Cómo se interpreta esta ecuación?**]
+
+.orange[$$\hat{salary} = 963,19 + 18,501 roe$$]
+
+
+- Primero, si el rendimiento sobre el capital es cero, $roe = 0$, entonces el sueldo que se predice corresponde al intercepto, 963.191, es decir, $963,191, dado que salary se mide en miles.
+
+]
+
+
+.pull-right[
+
+.font70[
+```{r, warning=FALSE, message=FALSE, eval=TRUE}
+
+library(wooldridge)
+library(tidyverse)
+
+data("ceosal1")
+
+modelo1 <- lm(salary ~ roe, ceosal1)
+
+summary(modelo1)
+
+```
+]
+
+- Luego, el cambio que se predice para el sueldo en función del cambio en el roe se expresa como: 
+
+$$\vartriangle \hat{salary} = 18,501 (\vartriangle roe)$$
+
+Esto significa que cuando el rendimiento sobre capital aumente en un punto porcentual, $roe = 1$, se predice que el sueldo variará aproximadamente 18.5, es decir $18,500.
+
+]
+
+
+---
+
+# Ejercicios en clase: .orange[Estimar]
+
+.pull-left[
+
+<br>
+<br>
+<br>
+
+<img src="img/roe1.jpg" width="100%"/>
+
+]
+
+
+.pull-right[
+
+### La estimación también la puedo utilizar para comparar los sueldos que se predicen para diferentes valores del *roe*.
+
+> Suponga que $roe = 30$
+
+
+.orange[$$\hat{salary} = 963,19 + 18,501 (30) =  1,518,221$$]
+
+
+> Un poco más de $1.5 millones
+
+Esto no significa que si un CEO está en una empresa con $roe = 30$, implique que gane  $ 1,518,221
+
+.center[**Hay otros factores que afectan el sueldo!!**]
+
+.green[**Esto solo es una PREDICCIÓN**] a partir de la línea de regresión.
+
+]
+
+
+---
+
+# Ejercicios en clase: .orange[Estimar]
+
+<br>
+<br>
+<br>
+<br>
+
+
+> .font160[.green[**3).**]]  Utilice la base de datos `WAGE1` y estime un modelo para la población de personas en la fuerza de trabajo en 1976, en dónde, utilice como variable respuesta o endógena `wage`, y predictora o exógena `educ`.
+
+
+<br>
+<br>
+<br>
+
+> .font160[.green[**4).**]] Interprete el $R^2$ para las dos estimaciones anteriores. ¿Qué ocurre?
+
 
 ---
 
