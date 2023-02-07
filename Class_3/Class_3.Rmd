@@ -918,6 +918,35 @@ En el segundo caso se supone que la(s) variable(s) $X$ y el término de error so
 .font160[$$cov(x,u) = 0$$]
 
 
+---
+
+
+# MCO
+
+### Supuestos modelo clásico de regresión lineal
+
+<br>
+
+> 👉️ **Supuesto 2.** .orange[Valores fijos de X, o valores de X independientes del término de error:]
+
+<br>
+
+
+## .green[De tal manera...]
+
+* $X_i$ es **endógeno** si...
+
+.font150[$$cov(u,x) \neq 0$$]
+
+* $X_i$ es **exógeno** si...
+
+.font150[$$cov(u,x) = 0$$]
+
+---
+
+class: center, middle
+
+# Si se garantiza la exogeneidad estricta los estimadores son insesgados y consistentes
 
 ---
 
@@ -1049,29 +1078,6 @@ $$cov(u_i u_j / X_i X_j) = 0$$
 No todos los valores $X$ en una muestra determinada deben ser iguales. Técnicamente, $var(X)$ debe ser un número positivo. 
 
 Además, no puede haber valores atípicos de la variable $X$, es decir, valores muy grandes en relación con el resto de las observaciones.
-
-
----
-
-# MCO
-
-### Errores estándar de los estimadores
-
-
-En estadística la precisión de un valor estimado se mide por su error estándar (ee).
-
-
-$$var(\hat{\beta_1}) = \frac{\sigma^2}{\sum x_i^2}$$
-
-$$ee(\beta_1) = \frac{\sigma}{\sqrt{\sum x_i^2}}$$
-
-Dónde, $\sigma^2$ es la varianza asociada a $u$ (Supuesto 4). .orange[**Note lo siguiente:**]
-
-- Dada $\sigma^2$, entre más grande sea la variación en los valores $X$, menor será la varianza de $\hat{\beta_1}$ y, por tanto, mayor será la precisión con la cual estimar $\beta_1$.
-
-- Dado $\sum x_i^2$ entre mayor sea la varianza de $\sigma^2$, mayor será la de $\beta_1$.
-
-- A medida que aumenta $n$, también es mayor la precisión para estimar $\beta_1$.
 
 
 ---
