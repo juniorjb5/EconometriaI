@@ -1214,6 +1214,85 @@ Entonces en términos de la varición total como puede escribirse el `\(R^2\)` ?
 
 ---
 
+# Tipos de modelos
+
+.pull-left[
+
+### Modelo: Lin-Lin
+
+`$$Y_i = \beta_0 + \beta_1 X_i + U_i$$`
+
+&lt;br&gt;
+
+.orange[Interpretación:]
+
+`$$\beta = \frac{dY_n}{dX_n}$$`
+
+
+&gt; Cambio esperado en nivel de `\(Y_n\)` cuando `\(X_n\)` aumenta una unidad
+
+]
+
+.pull-right[
+
+### Modelo: Log-Log
+
+`$$ln(Y_i) = \beta_0 + \beta_1 ln(X_i) + U_i$$`
+&lt;br&gt;
+
+.orange[Interpretación:]
+
+`$$\beta = \frac{X_n}{Y_n}\frac{dY_n}{dX_n}$$`
+
+
+&gt; Cambio esperado en nivel de `\(Y_n\)` cuando `\(X_n\)` aumenta una unidad
+
+
+
+]
+
+
+---
+
+# Tipos de modelos
+
+.pull-left[
+
+### Modelo: Log-Lin
+
+`$$ln(Y_i) = \beta_0 + \beta_1 X_i + U_i$$`
+
+&lt;br&gt;
+
+.orange[Interpretación:]
+
+`$$\beta = \frac{1}{Y_n}\frac{dY_n}{dX_n}$$`
+
+
+&gt; Cambio porcentual (en tanto por uno) esperado en `\(Y_n\)` cuando `\(X_n\)` aumenta una unidad
+
+]
+
+.pull-right[
+
+### Modelo: Lin-Log
+
+`$$Y_i = \beta_0 + \beta_1 ln(X_i) + U_i$$`
+&lt;br&gt;
+
+.orange[Interpretación:]
+
+`$$\beta = X_n\frac{dY_n}{dX_n}$$`
+
+
+&gt; Cambio esperado en el nivel de `\(Y_n\)` cuando `\(X_n\)` aumenta un uno por ciento (en tanto por uno)
+
+
+
+]
+
+---
+
 # Ejercicios en clase
 
 ## .orange[Discutir]
@@ -1259,7 +1338,9 @@ summary(modelo1)
 
 ----
 
-.center[**font160[.green[2).]] ¿Cómo se interpreta esta ecuación?**]
+.center[
+.font160[.green[**2).**]] **¿Cómo se interpreta esta ecuación?**
+]
 
 .orange[$$\hat{salary} = 963,19 + 18,501 roe$$]
 
@@ -1344,8 +1425,8 @@ Esto no significa que si un CEO está en una empresa con `\(roe = 30\)`, impliqu
 
 # Ejercicios en clase: .orange[Estimar]
 
-&lt;br&gt;
-&lt;br&gt;
+
+
 &lt;br&gt;
 &lt;br&gt;
 
@@ -1358,6 +1439,13 @@ Esto no significa que si un CEO está en una empresa con `\(roe = 30\)`, impliqu
 &lt;br&gt;
 
 &gt; .font160[.green[**4).**]] Interprete el `\(R^2\)` para las dos estimaciones anteriores. ¿Qué ocurre?
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+
+&gt; .font160[.green[**5).**]] ¿Qué forma funcional se ajusta mejor en términos de interpretabilidad en los dos modelos anteriores? Explique.
 
 
 ---
