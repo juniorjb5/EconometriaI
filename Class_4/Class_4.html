@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Econometria I</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="PhD.(C) Orlando Joaqui-Barandica" />
+    <meta name="date" content="2023-01-01" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/rladies.css" rel="stylesheet" />
+    <link href="libs/remark-css/rladies-fonts.css" rel="stylesheet" />
+    <script src="libs/clipboard/clipboard.min.js"></script>
+    <link href="libs/shareon/shareon.min.css" rel="stylesheet" />
+    <script src="libs/shareon/shareon.min.js"></script>
+    <link href="libs/xaringanExtra-shareagain/shareagain.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-shareagain/shareagain.js"></script>
+    <link href="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"Copy Code","success":"Copied!","error":"Press Ctrl+C to Copy"})</script>
+    <link href="libs/font-awesome/css/all.min.css" rel="stylesheet" />
+    <link href="libs/font-awesome/css/v4-shims.min.css" rel="stylesheet" />
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        TeX: { equationNumbers: { autoNumber: "AMS" } },
+      });
+    </script>
+    <style>
+    .mjx-mrow a {
+      color: black;
+      pointer-events: none;
+      cursor: default;
+    }
+    </style>
+    <link rel="stylesheet" href="fonts_mtheme.css" type="text/css" />
+    <link rel="stylesheet" href="sidney.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+
+class: inverse, left, bottom
+background-image: url("img/fondo.jpg")
+background-size: cover
+
+
+# **Econometria I**
+----
+
+## **&lt;br/&gt; Regresión Lineal Simple**
+
+### PhD.(C) Orlando Joaqui-Barandica
+### 2023
+
+
+
+
+
+---
+name: hola
+class: inverse, middle, center
+
+&lt;img style="border-radius: 60%;" src="img/jave.jpg"
+width="150px"
+/&gt;
+
+# Pontificia Universidad Javeriana de Cali
+
+--
+
+## Programa de Economía
+---
+
+
+
+
+.pull-left[
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+
+&lt;img src="img/gif1.gif" width="110%" /&gt;
+]
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+
+
+.pull-right[
+# Orlando Joaqui-Barandica
+### [www.joaquibarandica.com](https://www.joaquibarandica.com)
+ *PhD.(C) in Industrial Engineering* 
+ 
+ *MSc. Applied Economics*
+ 
+ *BSc. Statistics*
+]
+
+---
+
+name: menu
+background-image: url("img/back2.jpg")
+background-size: cover
+class: left, middle, inverse
+
+# Contenido
+
+----
+
+
+.pull-left[
+
+### <i class="fa fa-dice-d6" role="presentation" aria-label="dice-d6 icon"></i> [FRP y FRM](#FRP)
+
+### <i class="fa fa-database" role="presentation" aria-label="database icon"></i> [X fija o aleatoria?](#fija)
+
+### <i class="fa fa-dice-d6" role="presentation" aria-label="dice-d6 icon"></i> [Precisión de los estimadores](#precision)
+
+]
+
+
+.pull-right[
+
+
+
+### <i class="fa fa-upload" role="presentation" aria-label="upload icon"></i> [Estimación de `\(\sigma^2\)`](#varianza)
+
+### <i class="fa fa-broom" role="presentation" aria-label="broom icon"></i> [Regresión a través del origen](#origen)
+
+
+### <i class="fa fa-sort-numeric-up" role="presentation" aria-label="sort-numeric-up icon"></i> [Distr. de prob. de `\(u_i\)`](#ui)
+
+
+
+]
+
+---
+
+
+name: FRP
+class: inverse, center, middle
+
+# <i class="fa fa-dice-d6" role="presentation" aria-label="dice-d6 icon"></i>
+# FRP y FRM
+----
+
+.right[
+.bottom[
+####  [<i class="fa fa-bell" role="presentation" aria-label="bell icon"></i>](#menu)
+]
+]
+
+---
+
+# Recordemos...
+
+
+### Función de regresión poblacional (FRP)
+
+Es una función lineal de `\(x\)`. Dado cualquier valor de `\(x\)`, la distribución de `\(y\)` está centrada en `\(E(y|x)\)` 
+
+`$$E(y|x) =\beta_0 + \beta_1x$$`
+
+
+### Función de regresión muestral (FRM)
+
+Una vez que se han determinado las estimaciones por MCO del intercepto y de la pendiente, se obtiene la línea de regresión de MCO.
+
+$$ \hat{y} = \hat{\beta_0} + \hat{\beta_1}x$$
+
+
+.orange[**El intercepto,**] `\(\hat{\beta_0}\)`, es el valor predicho de `\(y\)` cuando `\(x = 0\)`, aunque en algunos casos no tiene sentido hacer `\(x = 0\)`. En estas situaciones, `\(\hat{\beta_0}\)` no tiene gran interés por sí misma.
+
+
+&gt; .green[Es importante recordar que la FRP es algo fijo, pero desconocido, de la población. Dado que la FRM se obtiene a partir de una muestra de datos, con una nueva muestra se obtendrán una pendiente e intercepto diferentes.]
+
+
+
+---
+
+
+
+name: fija
+class: inverse, center, middle
+
+# <i class="fa fa-dice-d6" role="presentation" aria-label="dice-d6 icon"></i>
+# `\(X_i\)` Fija o Aleatoria?
+----
+
+.right[
+.bottom[
+####  [<i class="fa fa-bell" role="presentation" aria-label="bell icon"></i>](#menu)
+]
+]
+
+---
+
+# `\(X_i\)` Fija o Aleatoria?
+
+Al hacer cálculos estadísticos, condicionar sobre los valores muestrales de la variable independiente es lo mismo que tratar a las `\(x_i\)` como fijas en muestras repetidas, lo cual se entiende como sigue:
+
+&lt;br&gt;
+
+- Primero se escogen n valores muestrales para `\(x_1, x_2, ..., x_n\)`. (Éstos pueden repetirse.)     - Dados estos valores, se obtiene después una muestra de `\(y\)`. 
+- A continuación, se obtiene otra muestra de `\(y\)`, usando los mismos valores para `\(x_1, x_2, ..., x_n\)`. 
+- Después se obtiene otra muestra de `\(y\)`, usando los mismos `\(x_1, x_2, ..., x_n\)`. Y así sucesivamente.
+
+
+&lt;br&gt;
+&lt;br&gt;
+
+.pull-left[
+
+.center[
+### La situación de que las `\(x_i\)` sean fijas en muestras repetidas no es muy realista en los contextos no experimentales. 
+]
+]
+
+
+.pull-rigth[
+
+.center[.orange[**Por ejemplo,** al muestrear individuos para el caso del salario y la educación, no tiene mucho sentido pensar en elegir de antemano los valores de *educ* y después muestrear individuos que tengan esos determinados niveles de educación.]]
+
+]
+
+
+
+---
+
+# `\(X_i\)` Fija o Aleatoria?
+
+
+&gt; Una vez que se supone que `\(E(u|x) = 0\)`, y que se tiene un muestreo aleatorio, **no cambia
+nada en los cálculos al tratar a las `\(x_i\)` como no aleatorias o aleatorias.** 
+
+&lt;br&gt;
+
+----
+
+* .orange[Si las variables independientes `\(X\)` son aleatorias, entonces se dice que estamos trabajando con un modelo de regresión lineal probabilístico. Esto significa que la relación entre las variables `\(X\)` e `\(Y\)` es modelada a través de una distribución de probabilidad. 
+
+En este caso, la incertidumbre sobre la relación entre `\(X\)` e `\(Y\)` es representada a través de la varianza de la distribución de probabilidad.]
+
+----
+
+
+.pull-left[
+Si las variables independientes X son aleatorias, entonces se espera que la esperanza condicional `\(E(u|x)\)` sea cero para cualquier valor de x. Esto significa que, dada una variable independiente X, la media de los errores esperados en los valores de Y asociados con ese valor de X es cero. 
+]
+
+.pull-right[
+
+&gt; Para decidir si con un análisis de regresión simple se van a obtener estimadores insesgados, es crucial pensar en los términos del supuesto 3.
+
+
+`$$E(u|x) = 0$$`
+
+]
+
+---
+
+
+
+name: precision
+class: inverse, center, middle
+
+# <i class="fa fa-dice-d6" role="presentation" aria-label="dice-d6 icon"></i>
+# Precisión de los estimadores
+----
+
+.right[
+.bottom[
+####  [<i class="fa fa-bell" role="presentation" aria-label="bell icon"></i>](#menu)
+]
+]
+
+---
+
+# Precisión de los estimadores
+
+Los estimadores po MCO tinen algunas propiedades importantes. Por ejemplo son combinaciones lineales de las observaciones de `\(y_i\)`. Por ejemplo:
+
+.pull-left[
+
+
+### Esperanza de `\(\beta_1\)`
+
+
+`$$\hat{\beta_1} = \frac{S_{xy}}{S_{xx}} = \sum_{i=1}^{n} c_i y_i$$`
+donde, 
+
+- `\(S_{xy}\)` es la covarianza entre `\(x\)` y `\(y\)`
+- `\(S_{xx}\)` es la varianza entre `\(x\)`
+- `\(c_i = (x_i - \bar{x}) / S_{xx}\)` para `\(i = 1, 2, ..., n\)`
+
+
+Los estimadores `\(\hat{\beta_0}\)` y `\(\hat{\beta_1}\)` son estimadores insesgados de los parámetros `\(\beta_0\)` y `\(\beta_1\)` del modelo.
+
+]
+
+
+
+.pull-right[
+
+
+$$
+`\begin{align*}
+E(\hat{\beta_1}) &amp; = E \left( \sum_{i=1}^{n} c_i y_i\right) = \sum_{i=1}^{n} c_i E(y_i) \\
+ &amp; = \sum_{i=1}^{n} c_i (\beta_0 + \beta_1 x_i) \\
+ &amp; = \beta_0 \sum_{i=1}^{n} c_i + \beta_1 \sum_{i=1}^{n} c_i x_i
+\end{align*}`
+$$
+&lt;br&gt;
+
+.orange[**Por propiedades:**] `\(\sum_{i=1}^{n} c_i = 0\)`, dado que el numerador `\(\sum_{i=1}^{n} (x_i - \bar{x})\)` muestra la suma de las desviaciones alrededor de la media, lo cual por propiedades de la varianza es igual a 0.
+]
+
+
+---
+
+# Precisión de los estimadores
+
+
+.pull-left[
+
+
+$$
+`\begin{align*}
+E(\hat{\beta_1}) &amp; = E \left( \sum_{i=1}^{n} c_i y_i\right) = \sum_{i=1}^{n} c_i E(y_i) \\
+ &amp; = \sum_{i=1}^{n} c_i (\beta_0 + \beta_1 x_i) \\
+ &amp; = \beta_0 \sum_{i=1}^{n} c_i + \beta_1 \sum_{i=1}^{n} c_i x_i
+\end{align*}`
+$$
+
+&lt;br&gt;
+
+.orange[**Por propiedades:**] `\(\sum_{i=1}^{n} c_i = 0\)`, dado que el numerador `\(\sum_{i=1}^{n} (x_i - \bar{x})\)` muestra la suma de las desviaciones alrededor de la media, lo cual por propiedades de la varianza es igual a 0.
+]
+
+
+.pull-right[
+
+
+.orange[**Por propiedades:**] `\(c_i\)` ejerce como un ponderador en términos de `\(x_i\)`. Si se multiplica el ponderador por `\(x_i\)` y se realiza la sumatoria obligatoriamente será 1.
+
+$$
+`\begin{align*}
+\sum c_i x_i = &amp; \frac{(x_i - \bar{x})} {S_{xx}} x_i = \frac{(x_i - \bar{x})} {\sum (x_i - \bar{x})^2}x_i \\
+\sum c_i x_i = &amp; 1
+\end{align*}`
+$$
+
+&lt;br&gt;
+
+.green[**De tal manera:**]
+
+$$
+`\begin{align*}
+E(\hat{\beta_1}) &amp; = \beta_0 \sum_{i=1}^{n} c_i + \beta_1 \sum_{i=1}^{n} c_i x_i \\
+&amp; = \beta_0 (0) + \beta_1 (1) \\
+&amp; = \beta_1
+\end{align*}`
+$$
+
+]
+
+
+---
+
+# Precisión de los estimadores
+
+
+.pull-left[
+
+### Varianza de `\(\beta_1\)`
+
+
+$$
+`\begin{align*}
+Var (\hat{\beta_1}) = &amp; Var \left( \sum_{i=1}^{n} c_i y_i \right) \\
+ = &amp; \sum_{i=1}^{n} c_i ^2 Var(y_i)
+\end{align*}`
+$$
+Ya que las observaciones `\(y_i\)` son no correlacionadas, por lo que la varianza de la suma es igual a la suma de las varianzas. La varianza de cada término en la suma es `\(c_i ^2 Var(y_i)\)` y hemos supuesto que `\(Var(y_i) = \sigma^2\)`.
+
+
+]
+
+.pull-right[
+
+En consecuencia,
+
+$$
+`\begin{align*}
+Var (\hat{\beta_1}) = &amp; \sigma^2 \sum_{i=1}^{n} c_i^2  \\
+ = &amp; \frac{\sigma^2 \sum (x_i - \bar{x})^2}{S^2_{xx}} \\
+ = &amp; \frac{\sigma^2}{S_{xx}} 
+\end{align*}`
+$$
+Es decir,
+
+`$$Var (\hat{\beta_1}) = \frac{\sigma^2}{\sum (x_i - \bar{x})^2}$$`
+
+
+]
+
+
+
+
+---
+
+
+# Precisión de los estimadores
+
+
+## Error estándar 
+
+Las estimaciones de mínimos cuadrados son función de los datos muestrales. Pero, como es probable que los datos cambien entre una muestra y otra, los valores estimados cambiarán `ipso facto`.
+
+
+Se requiere una medida de precisión de los estimadores `\(\hat{\beta_i}\)`.
+
+
+.center[
+### En estadística la precisión de un valor estimado se mide por su error estándar (ee)
+]
+
+
+
+.pull-left[
+
+.orange[**El error estándar** no es otra cosa que la desviación estándar de la distribución muestral del estimador, y la distribución muestral de un estimador es tan sólo una probabilidad o distribución de frecuencias del estimador, es decir, una distribución del conjunto de valores del estimador obtenidos de todas las muestras posibles de igual tamaño de una población dada.]
+]
+
+.pull-right[
+
+`$$Var (\hat{\beta_1}) = \frac{\sigma^2}{\sum (x_i - \bar{x})^2}$$`
+
+`$$ee(\hat{\beta_1}) = \sqrt{Var(\hat{\beta_1}}) = \frac{\sigma}{\sqrt{\sum (x_i - \bar{x})^2}}$$`
+
+]
+
+
+---
+
+class: center, middle
+
+# Para el caso de `\(\hat{\beta_0}\)` se sigue el mismo proceso.
+
+---
+
+
+name: varianza
+class: inverse, center, middle
+
+# <i class="fa fa-dice-d6" role="presentation" aria-label="dice-d6 icon"></i>
+# Estimación de `\(\sigma^2\)`
+----
+
+.right[
+.bottom[
+####  [<i class="fa fa-bell" role="presentation" aria-label="bell icon"></i>](#menu)
+]
+]
+
+---
+
+# Estimación de `\(\sigma^2\)`
+
+
+Además de estimar `\(\beta_0\)` y `\(\beta_1\)` se requiere un estimado de `\(\sigma^2\)` para probar hipótesis y formar estimados de intervalo pertinentes al modelo de regresión.
+
+&gt; El estimado de `\(\sigma^2\)` se obtiene a partir de la suma de cuadrados del error SCE
+
+`$$SCE = \sum_{i=1}^n u_i^2 = \sum_{i=1}^n (y_i - \hat{y_i})^2$$`
+
+Sea entonces:
+
+.pull-left[
+
+$$ \hat{\sigma}^2 = \frac{ \sum_{i=1}^n u_i^2 } {n-2} = \frac{SCE}{n-2} = CME$$
+
+donde, `\(n-2\)` son lo grados de libertad necesarios para la estimación del modelo, equivale a `\(n:\)` .green[Num. de Observaciones.] `\(2:\)` .orange[Num. de parámetros estimados] `\((\hat{\beta_0},\hat{\beta_1})\)`.
+A lo anterior, se le conoce como el `\(CME\)` **(Cuadrado medio del error).**
+
+]
+
+.pull-right[
+
+### Error estándar de la estimación (o regresión)
+
+`$$\hat{\sigma} = \sqrt{CME} = \sqrt{\frac{SCE}{n-2}}$$`
+
+No es más que la desviación estándar de los valores `\(Y\)` alrededor de la línea de regresión estimada.
+
+]
+
+
+---
+
+
+name: origen
+class: inverse, center, middle
+
+# <i class="fa fa-dice-d6" role="presentation" aria-label="dice-d6 icon"></i>
+# Regresión a través del origen
+----
+
+.right[
+.bottom[
+####  [<i class="fa fa-bell" role="presentation" aria-label="bell icon"></i>](#menu)
+]
+]
+
+---
+
+# Regresión a través del origen
+
+En raros casos, se impone la restricción de que, cuando `\(x = 0\)`, el valor esperado de `\(y\)` sea cero.
+
+----
+
+Hay ciertas relaciones para las que esto es razonable. Por ejemplo, si el ingreso `\((x)\)` es cero, entonces la recaudación de impuestos al ingreso `\((y)\)` deberá ser cero. Además hay ocasiones en las que un modelo que originalmente tiene un intercepto distinto de cero se transforma en un modelo sin intercepto.
+
+$$ \tilde{y} = \tilde{\beta_1} (x)$$
+----
+
+----
+
+Se llama regresión a través del origen porque la recta pasa por el punto `\(x = 0\)` y `\(\tilde{y} = 0\)`.
+
+
+`$$\tilde{\beta_1} = \frac{\sum_{i=1}^n x_i y_i}{\sum_{i=1}^n x_i^2}$$`
+
+---
+
+name: ui
+class: inverse, center, middle
+
+# <i class="fa fa-dice-d6" role="presentation" aria-label="dice-d6 icon"></i>
+# Distribución de probabilidad de las perturbaciones `\(u_i\)`
+----
+
+.right[
+.bottom[
+####  [<i class="fa fa-bell" role="presentation" aria-label="bell icon"></i>](#menu)
+]
+]
+
+---
+
+
+# Distribución de probabilidad de las perturbaciones `\(u_i\)`
+
+El modelo clásico de regresión lineal normal supone que cada ui está normalmente distribuida
+con:
+
+&gt; * Media: `\(\quad \quad \quad \quad E(u_i) = 0\)`
+&gt; * Varianza: `\(\quad \quad \quad E(u_i -E(u_i))^2 = E(u_i^2) = \sigma^2\)`
+&gt; * Convarianza: `\(\quad  cov(u_i, u_j) = E[(u_i -E(u_i))(u_j -E(u_j))] = E(u_iu_j)=0 ; \quad i\neq j\)`
+
+&lt;br&gt;
+
+**De forma general,**
+
+$$ u_i \sim N(0, \sigma^2)$$
+----
+
+ó, dónde `\(NID\)` significa normal e independientemente distribuido.
+
+
+$$ u_i \sim NID(0, \sigma^2)$$
+----
+
+
+---
+
+# Propiedades de los estimadores de MCO bajo normalidad
+
+
+&gt; .font150[.orange[**1.**]] Son **insesgados**
+
+&gt; .font150[.orange[**2.**]] Tienen **varianza mínima**. En combinación con 1, esto significa que son estimadores insesgados con varianza mínima, o eficientes.
+
+&gt; .font150[.orange[**3.**]] Presentan **consistencia**; es decir, a medida que el tamaño de la muestra aumenta indefinidamente, los estimadores convergen hacia sus verdaderos valores poblacionales.
+
+&gt; .font150[.orange[**4.**]] `\(\hat{\beta_0}\)` sigue una distribución normal, es decir:  `\(\hat{\beta_0} \sim N(\beta_0, \sigma^2_\hat{\beta_0})\)`.
+
+&gt; .font150[.orange[**5.**]] `\(\hat{\beta_1}\)` sigue una distribución normal, es decir:  `\(\hat{\beta_1} \sim N(\beta_1, \sigma^2_\hat{\beta_1})\)`.
+
+
+
+A propósito, observe que si supone que `\(u_i \sim N(0, \sigma^2)\)`, `\(Y_i\)`, al ser una función lineal de `\(u_i\)`, posee también una distribución normal con una media y una varianza dadas por:
+
+`$$Y_i \sim N(\beta_0 + \beta_2X_i, \sigma^2)$$`
+
+---
+
+
+class: inverse, center, middle
+background-color: #122140
+
+.pull-left[
+
+.center[
+&lt;br&gt;&lt;br&gt;
+
+# Gracias!!!
+
+&lt;br&gt;
+
+
+
+### ¿Preguntas?
+
+&lt;br&gt;
+
+
+&lt;img src="img/qr-code.png" width="49%" style="display: block; margin: auto;" /&gt;
+
+
+]
+
+
+]
+
+
+.pull-right[
+
+&lt;br&gt; 
+&lt;br&gt; 
+&lt;img style="border-radius: 50%;" src="img/avatar.png"
+width="150px"
+/&gt;
+
+### [www.joaquibarandica.com](https://www.joaquibarandica.com)
+
+<i class="fa fa-envelope" role="presentation" aria-label="envelope icon"></i> orlando.joaqui@javerianacali.edu.co
+
+&lt;img src="img/Logo.jpg" width="120%"&gt;
+
+]
+
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;
+
+
+
+
+
+
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

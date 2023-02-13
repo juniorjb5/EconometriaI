@@ -725,7 +725,7 @@ $$Min SCE =  \frac{\partial SCE}{\partial \hat{\beta_j}}$$
 
 
 $$\sum_{i=1}^n y_i = n \hat{\beta_0} + \hat{\beta_1} \sum_{i=1}^n x_i$$
-$$\sum_{i=1}^n x_i y_i = \beta_0 \sum_{i=1}^n x_i + \hat{\beta_1} \sum_{i=1}^n x_i^2$$
+$$\sum_{i=1}^n x_i y_i = \hat{\beta_0} \sum_{i=1}^n x_i + \hat{\beta_1} \sum_{i=1}^n x_i^2$$
 
 ---
 
@@ -1118,6 +1118,76 @@ Además, no puede haber valores atípicos de la variable $X$, es decir, valores 
 <img src="img/markov.jpg" width="70%"/>
 ]
 ]
+
+---
+
+
+# Cómo saber en la práctica si un estimador de MCO es MELI
+
+
+.scroll-box-10[
+
+
+```{c, warning=FALSE, message=FALSE, eval=FALSE, echo=TRUE}
+
+X<-runif(10000)
+u<-rnorm(10000)
+
+Y= 2.3 + 5*X + u  #Modelo de la población
+
+
+plot(X,Y, main="Modelo poblacional")
+
+BasePobl<-data.frame(X,Y)
+
+
+n<-sample(1:10000,10)
+
+BaseMuestra<-sample(BasePobl[n,])
+
+BaseMuestra
+
+plot(BaseMuestra$X,BaseMuestra$Y)
+
+#Estimar modelo
+
+m1<-lm(Y~X,data = BaseMuestra)
+summary(m1)
+
+beta1<-m1$coefficients[2]
+
+
+######################################
+
+#Ciclo
+
+beta1<-0
+for(i in 1:50){
+
+  n<-sample(1:10000,10)
+  BaseMuestra<-sample(BasePobl[n,])
+
+
+  plot(BaseMuestra$X,BaseMuestra$Y)
+
+
+#Estimar modelo
+m1<-lm(Y~X,data = BaseMuestra)
+summary(m1)
+
+beta1[i]<-m1$coefficients[2]
+
+}
+
+hist(beta1)
+mean(beta1)
+
+```
+
+
+]
+
+
 
 ---
 

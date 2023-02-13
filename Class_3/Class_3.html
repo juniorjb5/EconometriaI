@@ -702,7 +702,7 @@ Si lo que interesa es minimizar la suma de cuadrados del error...
 
 
 `$$\sum_{i=1}^n y_i = n \hat{\beta_0} + \hat{\beta_1} \sum_{i=1}^n x_i$$`
-`$$\sum_{i=1}^n x_i y_i = \beta_0 \sum_{i=1}^n x_i + \hat{\beta_1} \sum_{i=1}^n x_i^2$$`
+`$$\sum_{i=1}^n x_i y_i = \hat{\beta_0} \sum_{i=1}^n x_i + \hat{\beta_1} \sum_{i=1}^n x_i^2$$`
 
 ---
 
@@ -1095,6 +1095,77 @@ Además, no puede haber valores atípicos de la variable `\(X\)`, es decir, valo
 &lt;img src="img/markov.jpg" width="70%"/&gt;
 ]
 ]
+
+---
+
+
+# Cómo saber en la práctica si un estimador de MCO es MELI
+
+
+.scroll-box-10[
+
+
+
+```c
+
+X&lt;-runif(10000)
+u&lt;-rnorm(10000)
+
+Y= 2.3 + 5*X + u  #Modelo de la población
+
+
+plot(X,Y, main="Modelo poblacional")
+
+BasePobl&lt;-data.frame(X,Y)
+
+
+n&lt;-sample(1:10000,10)
+
+BaseMuestra&lt;-sample(BasePobl[n,])
+
+BaseMuestra
+
+plot(BaseMuestra$X,BaseMuestra$Y)
+
+#Estimar modelo
+
+m1&lt;-lm(Y~X,data = BaseMuestra)
+summary(m1)
+
+beta1&lt;-m1$coefficients[2]
+
+
+######################################
+
+#Ciclo
+
+beta1&lt;-0
+for(i in 1:50){
+
+  n&lt;-sample(1:10000,10)
+  BaseMuestra&lt;-sample(BasePobl[n,])
+
+
+  plot(BaseMuestra$X,BaseMuestra$Y)
+
+
+#Estimar modelo
+m1&lt;-lm(Y~X,data = BaseMuestra)
+summary(m1)
+
+beta1[i]&lt;-m1$coefficients[2]
+
+}
+
+hist(beta1)
+mean(beta1)
+
+```
+
+
+]
+
+
 
 ---
 
