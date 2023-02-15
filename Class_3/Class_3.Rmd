@@ -12,7 +12,6 @@ output:
       - rladies
       - rladies-fonts
       - fonts_mtheme.css
-      - sidney.css
     includes:
       in_header: "mathjax-equation-numbers.html"
     seal: false  
@@ -1125,7 +1124,7 @@ Además, no puede haber valores atípicos de la variable $X$, es decir, valores 
 # Cómo saber en la práctica si un estimador de MCO es MELI
 
 
-.scroll-box-10[
+.scroll-box-20[
 
 
 ```{c, warning=FALSE, message=FALSE, eval=FALSE, echo=TRUE}

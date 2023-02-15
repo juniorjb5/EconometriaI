@@ -12,7 +12,6 @@ output:
       - rladies
       - rladies-fonts
       - fonts_mtheme.css
-      - sidney.css
     includes:
       in_header: "mathjax-equation-numbers.html"
     seal: false  
@@ -604,6 +603,136 @@ $$Y_i \sim N(\beta_0 + \beta_2X_i, \sigma^2)$$
 
 ---
 
+
+
+# Actividad en clase
+
+
+.left-column[
+
+Resulta que te han contratado para dirigir un proyecto en el área de Educación, con la finalidad de caracterizar parte de la población. 
+
+<br>
+
+A continuación hay una guía de como trabajar algunas variables en R de la base de datos de Educación de la Encuesta Nacional de Calidad de Vida.
+
+]
+
+
+.right-column[
+
+
+.scroll-box-20[
+
+``` r
+
+
+library(haven)
+
+
+Educ = read_dta("Educación.dta")
+
+View(Educ)
+
+
+hist(Educ$P6167)
+
+
+library(dplyr)
+
+# Realicemos conteos de la variable P4693:
+# ¿Qué medio de transporte utiliza para ir a la institución donde estudia?
+
+Educ %>% 
+  count(P4693)
+
+
+# Realicemos conteos de la variable P5673:
+# ¿El establecimiento donde estudia es privado o público?
+
+
+Educ %>% 
+  count(P5673)
+
+
+# Realicemos conteos conjuntos:
+
+Educ %>% 
+  count(P5673,P4693)
+
+
+# Exploremos ahora las frecuencias relativas, tenemos que calcularlas
+# Utilicemos la variable(P8586)
+# ¿Usted actualmente estudia?
+
+Educ %>% 
+  count(P8586) %>% 
+  mutate(Frecuencia = prop.table(n))
+
+
+# Guardemos lo anterior en un objeto para poder graficarlo
+
+A = Educ %>% 
+    count(P8586) %>% 
+    mutate(Frecuencia = prop.table(n))+
+    mutate()
+
+
+
+# Ahora me interes graficar el objeto "A" creado anteriormente
+
+
+library(ggplot2)
+library(labelled)
+
+
+ggplot( data = A, aes(x= to_factor(P8586), y = Frecuencia)) +
+  geom_bar(stat = "identity") +
+  labs(x = "¿Usted actualmente estudia?" )
+  
+
+```
+]
+
+]
+
+
+
+---
+
+
+# Actividad en clase
+
+
+.left-column[
+
+![](https://media.giphy.com/media/1gdkWME574oWh9ESjc/giphy.gif)
+
+]
+
+
+.right-column[
+
+Descargue la base de datos del siguiente link: [ECV 2018](http://microdatos.dane.gov.co/index.php/catalog/607/get_microdata)
+
+<br>
+
+* Sección de educación, o salud, o datos de la vivienda, o el módulo que usted quiera.
+* Utilice la librería `haven` para cargar la base de datos (tal cual está el código guía)
+* Identifique una relación teórica entre las dos variables y estime un modelo de regresión lineal simple.
+* Asuma que la muestra que utilizó es la `población`, de tal manera, la estimación anterior es la FRP.
+* Realice diferentes remuestreos del tamaño que usted considere y analice la distribución de los $\hat{\beta_i}$
+* ¿Qué distribución siguen?
+
+
+]
+
+
+
+
+
+
+---
 
 class: inverse, center, middle
 background-color: #122140
