@@ -24,4 +24,4 @@ Talleres. [Link de Actividades](https://juniorjb5.github.io/EconometriaI/Activid
 
 *Los talleres de estudio para los parciales se encuentran en el Brightspace.
 
-Datos. [Aquí](https://correounivalleeduco-my.sharepoint.com/:f:/g/personal/orlando_joaqui_correounivalle_edu_co/El-obeIY-NJLtFvl8qspVq0BdJX9ShklgyBvNG8lT7NFYw?e=qQXoNm)
+Datos. [Aquí](https://correounivalleeduco-my.sharepoint.com/:f:/g/personal/orlando_joaqui_correounivalle_edu_co/EjvU-uMkUMhMkK-qE8dJTAIBx5MzIpMzJscz0qM02CVUOg?e=0xfrna)
