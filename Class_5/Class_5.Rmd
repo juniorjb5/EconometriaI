@@ -1169,8 +1169,147 @@ $$ \tilde{y} = \tilde{\beta_1} (x)$$
 Se llama regresión a través del origen porque la recta pasa por el punto $x = 0$ y $\tilde{y} = 0$.
 
 
+
+
+---
+
+
+# Regresión a través del origen
+
+
+- En el modelo de regresión lineal simple, el intercepto $(\beta_0)$ representa el valor medio de la variable dependiente $(Y)$ cuando la variable independiente $(X)$ es cero.
+
+- Sin embargo, en algunas situaciones, puede ser razonable suponer que la recta de regresión pasa por el origen (es decir, $\beta_0 = 0$).
+
+
+----
+
+
+En este caso, el modelo de regresión lineal simple se convierte en: $Y = \beta_1 X + u$
+
+- Para estimar $\beta_1$, se puede utilizar el método de los mínimos cuadrados ordinarios (MCO) de la misma manera que en el modelo de regresión lineal simple con intercepto.
+
+
+
+---
+
+# Regresión a través del origen
+
+
+## Estimación de $\beta_1$ en la regresión a través del origen
+
+
+La estimación de $\beta_1$ en la regresión a través del origen se obtiene mediante el siguiente estadístico MCO:
+
+
 $$\tilde{\beta_1} = \frac{\sum_{i=1}^n x_i y_i}{\sum_{i=1}^n x_i^2}$$
 
+
+- Donde $X_i$ y $Y_i$ son las observaciones de la variable independiente y dependiente, respectivamente.
+
+
+- La interpretación de $\tilde{\beta}_1$ en la regresión a través del origen es el cambio promedio en $Y$ por unidad de cambio en $X$ cuando $X$ es diferente de cero.
+
+
+
+---
+
+# Regresión a través del origen
+
+## Propiedades de $\hat{\beta}_1$ en la regresión a través del origen
+
+- Si las hipótesis de Gauss-Markov se cumplen, entonces $\hat{\beta}_1$ es un estimador insesgado y consistente de $\beta_1$.
+
+- Sin embargo, a diferencia del modelo de regresión lineal simple con intercepto, en la regresión a través del origen $\hat{\beta}_1$ no es eficiente.
+
+
+.pull-left[
+
+- La estimación de la varianza de $\hat{\beta}_1$ es:
+
+
+$$Var(\tilde{\beta}_1) = \frac{\sigma^2}{\sum^n_{i=1} X_i^2}$$
+
+dónde, 
+
+$$\hat{\sigma}^2 = \frac{\sum\hat{u}_i^2}{n-1}$$
+
+]
+
+.pull-right[
+
+Cuando no se utiliza un intercepto, se pierde información adicional sobre la relación entre las variables independiente y dependiente. Por lo tanto, la estimación del coeficiente $\beta_1$ en la regresión a través del origen no es tan precisa como en el modelo de regresión lineal simple con intercepto. Es decir, la estimación de $\beta_1$ no es tan eficiente.
+
+]
+
+
+
+---
+
+# Regresión a través del origen
+
+## $r^2$ modelo regresión a través del origen
+
+$$r^2_{simple} = \frac{(\sum X_i Y_i)^2 }{\sum X_i^2 \sum Y_i^2}$$
+
+---
+
+# Escalas y unidades de medición
+
+
+Suponga el siguiente modelo en un tipo de escala:
+
+
+$$Y_i = \hat{\beta_0} + \hat{\beta_1}X + \hat{u}_i$$
+
+Suponga el siguiente modelo en otro tipo de escala:
+
+$$Y_i^* = \hat{\beta_0}^* + \hat{\beta_1}^*X^* + \hat{u}_i ^*$$
+
+dónde $Y_i^* = w_1Y_i$ y $X_i^* = w_2X_i$
+
+
+Se tiene entonces:
+
+.pull-left[
+
+
+$$\hat{\beta}_0^* = w_1\hat{\beta_0}$$
+
+$$\hat{\beta}_1^* = \frac{w_1}{w_2}\hat{\beta_1}$$
+]
+
+.pull-right[
+
+
+$$\hat{\sigma}^{2*} = w_1^2 \hat{\sigma}^2$$
+
+$$var(\hat{\beta}_0^*)=w_1^2 var(\hat{\beta}_0)$$
+
+$$var(\hat{\beta}_1^*)=(\frac{w_1}{w_2})^2 var(\hat{\beta}_1)$$
+
+$$r^2_{xy} = r^2_{x^*y^*}$$
+
+]
+
+
+---
+
+
+# Regresión sobre variables estandarizadas
+
+En la sección anterior vimos que las unidades con que se expresan la variable independiente
+(regresora) y la dependiente (regresada) infl uyen en la interpretación de los coefi cientes de regresión.
+
+> Esto se evita si ambas variables (regresora y regresada) se expresan como variables estandarizadas.
+
+$$Y_i^* = \frac{(Y_i - \bar{Y})}{S_y}$$
+$$X_i^* = \frac{(X_i - \bar{X})}{S_x}$$
+Entonces: 
+
+$$Y_i^* = \hat{\beta_0}^* + \hat{\beta_1}^*X^* + \hat{u}_i ^*$$
+
+**¿Cómo se interpretan los coeficientes beta?** La interpretación es que si la regresora (estandarizada) se incrementa una desviación estándar, en promedio, la regresada (estandarizada) aumenta $\beta_1$ unidades de desviación estándar. Por tanto, a diferencia del modelo tradicional, se mide el efecto no en términos de las unidades originales en las expresadas $X$ y $Y$, sino en unidades de desviación estándar.
 
 ---
 
