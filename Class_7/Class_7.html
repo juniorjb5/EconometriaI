@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Econometria I</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="PhD.(C) Orlando Joaqui-Barandica" />
+    <meta name="date" content="2023-01-01" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/rladies.css" rel="stylesheet" />
+    <link href="libs/remark-css/rladies-fonts.css" rel="stylesheet" />
+    <script src="libs/clipboard/clipboard.min.js"></script>
+    <link href="libs/shareon/shareon.min.css" rel="stylesheet" />
+    <script src="libs/shareon/shareon.min.js"></script>
+    <link href="libs/xaringanExtra-shareagain/shareagain.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-shareagain/shareagain.js"></script>
+    <link href="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"Copy Code","success":"Copied!","error":"Press Ctrl+C to Copy"})</script>
+    <link href="libs/font-awesome/css/all.min.css" rel="stylesheet" />
+    <link href="libs/font-awesome/css/v4-shims.min.css" rel="stylesheet" />
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        TeX: { equationNumbers: { autoNumber: "AMS" } },
+      });
+    </script>
+    <style>
+    .mjx-mrow a {
+      color: black;
+      pointer-events: none;
+      cursor: default;
+    }
+    </style>
+    <link rel="stylesheet" href="fonts_mtheme.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+
+class: inverse, left, bottom
+background-image: url("img/fondo.jpg")
+background-size: cover
+
+
+# **Econometria I**
+----
+
+## **&lt;br/&gt; Regresión Lineal Múltiple**
+
+### PhD.(C) Orlando Joaqui-Barandica
+### 2023
+
+
+
+
+
+---
+name: hola
+class: inverse, middle, center
+
+&lt;img style="border-radius: 60%;" src="img/jave.jpg"
+width="150px"
+/&gt;
+
+# Pontificia Universidad Javeriana de Cali
+
+--
+
+## Programa de Economía
+---
+
+
+
+
+.pull-left[
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+
+&lt;img src="img/gif1.gif" width="110%" /&gt;
+]
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+
+
+.pull-right[
+# Orlando Joaqui-Barandica
+### [www.joaquibarandica.com](https://www.joaquibarandica.com)
+ *PhD.(C) in Industrial Engineering* 
+ 
+ *MSc. Applied Economics*
+ 
+ *BSc. Statistics*
+]
+
+---
+
+name: menu
+background-image: url("img/back2.jpg")
+background-size: cover
+class: left, middle, inverse
+
+# Contenido
+
+----
+
+
+.pull-left[
+
+### <i class="fa fa-dice-d6" role="presentation" aria-label="dice-d6 icon"></i> Forma matricial
+
+### <i class="fa fa-database" role="presentation" aria-label="database icon"></i> ANOVA
+
+### <i class="fa fa-dice-d6" role="presentation" aria-label="dice-d6 icon"></i> Selección de predictores
+
+]
+
+
+.pull-right[
+
+
+
+### <i class="fa fa-upload" role="presentation" aria-label="upload icon"></i> Interacción de predictores
+
+### <i class="fa fa-sort-numeric-up" role="presentation" aria-label="sort-numeric-up icon"></i> Hipótesis conjuntas
+
+
+
+
+]
+
+---
+
+
+
+# Modelo lineal múltiple en forma matricial
+
+- El modelo lineal múltiple es una herramienta común en la estadística y el análisis de datos.
+
+- Permite relacionar una variable de interés con múltiples covariables.
+
+- La forma matricial del modelo es particularmente útil para su análisis y resolución.
+
+
+
+### El modelo lineal múltiple se puede expresar en forma matricial como:
+
+  $$
+  Y = X\beta + \epsilon
+  $$
+
+
+
+---
+
+# Modelo lineal múltiple en forma matricial
+
+$$
+Y = X\beta + \epsilon
+$$
+
+
+`$$Y = \begin{bmatrix} y_1 \\ y_2 \\ \vdots \\ y_n \end{bmatrix} , \quad
+X = \begin{bmatrix} 
+1 &amp; x_{11} &amp; x_{12} &amp; \cdots &amp; x_{1p} \\
+1 &amp; x_{21} &amp; x_{22} &amp; \cdots &amp; x_{2p} \\
+\vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+1 &amp; x_{n1} &amp; x_{n2} &amp; \cdots &amp; x_{np} \\
+\end{bmatrix} , \quad
+\beta = \begin{bmatrix} \beta_0 \\ \beta_1 \\ \beta_2 \\ \vdots \\ \beta_p \end{bmatrix} , \quad
+\epsilon = \begin{bmatrix} \epsilon_1 \\ \epsilon_2 \\ \vdots \\ \epsilon_n \end{bmatrix}$$`
+
+
+Donde:
+
+- Y es un vector de respuestas de longitud n.
+- X es una matriz de covariables de dimensión n x p.
+- beta es un vector de coeficientes de longitud p.
+- epsilon es un vector de errores de longitud n.
+
+
+---
+
+# Solución de mínimos cuadrados
+
+- La solución de mínimos cuadrados para `\(\beta\)` está dada por:
+
+  $$
+  \hat{\beta} = (X^\top X)^{-1} X^\top Y
+  $$
+
+- La matriz `\((X^\top X)^{-1} X^\top\)` se conoce como la **matriz pseudo-inversa** de `\(X\)`.
+
+### Interpretación de los coeficientes
+
+- Los coeficientes `\(\beta\)` representan el cambio en la respuesta `\(Y\)` esperado por cada cambio unitario en la covariable correspondiente, manteniendo las demás covariables constantes.
+- Si `\(\beta_i &gt; 0\)`, entonces un aumento en la covariable `\(X_i\)` se asocia con un aumento en `\(Y\)`.
+- Si `\(\beta_i &lt; 0\)`, entonces un aumento en la covariable `\(X_i\)` se asocia con una disminución en `\(Y\)`.
+- Si `\(\beta_i = 0\)`, entonces la covariable `\(X_i\)` no está asociada con una variación en `\(Y\)`.
+
+---
+
+
+# Diagnóstico y evaluación del modelo
+
+- La evaluación del modelo incluye la comprobación de las suposiciones de los residuos.
+
+- Si los residuos no siguen una distribución normal o si hay patrones en los residuos, entonces es posible que el modelo no sea apropiado para realizar inferencias.
+
+- También se pueden utilizar medidas como `\(R^2\)` o el error cuadrático medio para evaluar la calidad del ajuste del modelo.
+
+### En General,
+
+
+- La forma matricial del modelo lineal múltiple es una herramienta poderosa para el análisis y la resolución de problemas de regresión.
+
+- La interpretación de los coeficientes permite entender la relación entre las variables.
+
+- La evaluación del modelo es esencial para verificar su validez y utilidad en la toma de decisiones.
+
+
+
+---
+
+# ANOVA
+
+
+
+&lt;table&gt;
+  &lt;caption&gt;Tabla ANOVA para el modelo de regresión lineal múltiple&lt;/caption&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt; Fuente de variación &lt;/th&gt;
+      &lt;th&gt; Suma de cuadrados &lt;/th&gt;
+      &lt;th&gt; Grados de libertad &lt;/th&gt;
+      &lt;th&gt; Cuadrado medio &lt;/th&gt;
+      &lt;th&gt; F &lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt; Regresión &lt;/td&gt;
+      &lt;td&gt; `\(SS_R\)` &lt;/td&gt;
+      &lt;td&gt; `\(p\)` &lt;/td&gt;
+      &lt;td&gt; `\(MS_R=SS_R/p\)` &lt;/td&gt;
+      &lt;td&gt; `\(F=\frac{MS_R}{MS_E}\)` &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt; Error &lt;/td&gt;
+      &lt;td&gt; `\(SS_E\)` &lt;/td&gt;
+      &lt;td&gt; `\(n-p-1\)` &lt;/td&gt;
+      &lt;td&gt; `\(MS_E=SS_E/(n-p-1)\)` &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt; Total &lt;/td&gt;
+      &lt;td&gt; `\(SS_T\)` &lt;/td&gt;
+      &lt;td&gt; `\(n-1\)` &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+Para conocer la variabilidad que explica cada uno de los predictores incorporadas en el modelo se recurre a un ANOVA, ya que es el método que se encarga de analizar la varianza.
+
+Tal y como ocurre en los modelos lineales simples o en los estudios de correlación, por muy alta que sea la bondad de ajuste, si el test F no resulta significativo no se puede aceptar el modelo como válido puesto que no es capaz de explicar la varianza observada mejor de lo esperado por azar.
+
+
+
+---
+
+# Ejemplo
+
+Un estudio quiere generar un modelo que permita predecir la esperanza de vida media de los habitantes de una ciudad en función de diferentes variables. Se dispone de información sobre: habitantes, analfabetismo, ingresos, esperanza de vida, asesinatos, universitarios, heladas, área y densidad poblacional.
+
+
+
+```r
+# El data set empleado es el state.x77
+# Para facilitar su interpretación se renombra y se modifica
+library(dplyr)
+datos &lt;- as.data.frame(state.x77)
+datos &lt;- rename(habitantes = Population, analfabetismo = Illiteracy,
+                ingresos = Income, esp_vida = `Life Exp`, asesinatos = Murder,
+                universitarios = `HS Grad`, heladas = Frost, area = Area,
+                .data = datos)
+datos &lt;- mutate(.data = datos, densidad_pobl = habitantes * 1000 / area)
+```
+
+
+---
+
+# 1. Analizar la relación entre variables
+
+El primer paso a la hora de establecer un modelo lineal múltiple es estudiar la relación que existe entre variables. Esta información es crítica a la hora de identificar cuáles pueden ser los mejores predictores para el modelo, qué variables presentan relaciones de tipo no lineal (por lo que no pueden ser incluidas) y para identificar colinialidad entre predictores. A modo complementario, es recomendable representar la distribución de cada variable mediante histogramas.
+
+Las dos formas principales de hacerlo son mediante representaciones gráficas (gráficos de dispersión) y el cálculo del coeficiente de correlación de cada par de variables.
+
+
+
+```r
+round(cor(x = datos, method = "pearson"), 3)
+```
+
+```
+##                habitantes ingresos analfabetismo esp_vida asesinatos
+## habitantes          1.000    0.208         0.108   -0.068      0.344
+## ingresos            0.208    1.000        -0.437    0.340     -0.230
+## analfabetismo       0.108   -0.437         1.000   -0.588      0.703
+## esp_vida           -0.068    0.340        -0.588    1.000     -0.781
+## asesinatos          0.344   -0.230         0.703   -0.781      1.000
+## universitarios     -0.098    0.620        -0.657    0.582     -0.488
+## heladas            -0.332    0.226        -0.672    0.262     -0.539
+## area                0.023    0.363         0.077   -0.107      0.228
+## densidad_pobl       0.246    0.330         0.009    0.091     -0.185
+##                universitarios heladas   area densidad_pobl
+## habitantes             -0.098  -0.332  0.023         0.246
+## ingresos                0.620   0.226  0.363         0.330
+## analfabetismo          -0.657  -0.672  0.077         0.009
+## esp_vida                0.582   0.262 -0.107         0.091
+## asesinatos             -0.488  -0.539  0.228        -0.185
+## universitarios          1.000   0.367  0.334        -0.088
+## heladas                 0.367   1.000  0.059         0.002
+## area                    0.334   0.059  1.000        -0.341
+## densidad_pobl          -0.088   0.002 -0.341         1.000
+```
+
+
+---
+
+
+```r
+library(GGally)
+ggpairs(datos, lower = list(continuous = "smooth"),
+        diag = list(continuous = "barDiag"), axisLabels = "none")
+```
+
+![](Class_7_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
+
+---
+
+# 1. Analizar la relación entre variables
+
+Del análisis preliminar se pueden extraer las siguientes conclusiones:
+
+----
+
+* Las variables que tienen una mayor relación lineal con la esperanza de vida son: asesinatos (r= -0.78), analfabetismo (r= -0.59) y universitarios (r= 0.58).
+
+----
+
+* Asesinatos y analfabetismo están medianamente correlacionados (r = 0.7) por lo que posiblemente no sea útil introducir ambos predictores en el modelo.
+
+----
+
+* Las variables habitantes, área y densidad poblacional muestran una distribución exponencial, una transformación logarítmica posiblemente haría más normal su distribución.
+
+
+
+---
+
+# 2. Generar el modelo
+
+
+```r
+modelo &lt;- lm(esp_vida ~ habitantes + ingresos + analfabetismo + asesinatos +
+               universitarios + heladas + area + densidad_pobl, data = datos )
+summary(modelo)
+```
+
+```
+## 
+## Call:
+## lm(formula = esp_vida ~ habitantes + ingresos + analfabetismo + 
+##     asesinatos + universitarios + heladas + area + densidad_pobl, 
+##     data = datos)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -1.47514 -0.45887 -0.06352  0.59362  1.21823 
+## 
+## Coefficients:
+##                  Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)     6.995e+01  1.843e+00  37.956  &lt; 2e-16 ***
+## habitantes      6.480e-05  3.001e-05   2.159   0.0367 *  
+## ingresos        2.701e-04  3.087e-04   0.875   0.3867    
+## analfabetismo   3.029e-01  4.024e-01   0.753   0.4559    
+## asesinatos     -3.286e-01  4.941e-02  -6.652 5.12e-08 ***
+## universitarios  4.291e-02  2.332e-02   1.840   0.0730 .  
+## heladas        -4.580e-03  3.189e-03  -1.436   0.1585    
+## area           -1.558e-06  1.914e-06  -0.814   0.4205    
+## densidad_pobl  -1.105e-03  7.312e-04  -1.511   0.1385    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.7337 on 41 degrees of freedom
+## Multiple R-squared:  0.7501,	Adjusted R-squared:  0.7013 
+## F-statistic: 15.38 on 8 and 41 DF,  p-value: 3.787e-10
+```
+
+---
+
+# 2. Generar el modelo
+
+### El modelo con todas las variables introducidas como predictores tiene un R2 alta (0.7013), es capaz de explicar el 70% de la variabilidad observada en la esperanza de vida. 
+
+### El p-value del modelo es significativo (3.787e-10) por lo que se puede aceptar que el modelo no es por azar, al menos uno de los coeficientes parciales de regresión es distinto de 0. Muchos de ellos no son significativos, lo que es un indicativo de que podrían no contribuir al modelo.
+
+---
+
+# Selección de los predictores
+
+A la hora de seleccionar los predictores que deben formar parte del modelo se pueden seguir varios métodos:
+
+- **Método jerárquico:** basándose en el criterio del analista, se introducen unos predictores determinados en un orden determinado.
+
+- **Método de entrada forzada:** se introducen todos los predictores simultáneamente.
+
+- **Método paso a paso (stepwise):** emplea criterios matemáticos para decidir qué predictores contribuyen significativamente al modelo y en qué orden se introducen. Dentro de este método se diferencias tres estrategias:
+
+
+---
+
+# Selección de los predictores
+
+&gt; **Método paso a paso (stepwise):** 
+
+
+**Dirección forward:** El modelo inicial no contiene ningún predictor, solo el parámetro `\(\beta_0\)`
+. A partir de este se generan todos los posibles modelos introduciendo una sola variable de entre las disponibles. 
+
+
+Aquella variable que mejore en mayor medida el modelo se selecciona. A continuación se intenta incrementar el modelo probando a introducir una a una las variables restantes. Si introduciendo alguna de ellas mejora, también se selecciona. En el caso de que varias lo hagan, se selecciona la que incremente en mayor medida la capacidad del modelo. 
+
+
+Este proceso se repite hasta llegar al punto en el que ninguna de las variables que quedan por incorporar mejore el modelo.
+
+
+---
+
+# Selección de los predictores
+
+**Dirección backward:** El modelo se inicia con todas las variables disponibles incluidas como predictores. Se prueba a eliminar una a una cada variable, si se mejora el modelo, queda excluida. 
+
+Este método permite evaluar cada variable en presencia de las otras.
+
+
+---
+
+# Selección de los predictores
+
+**Doble o mixto:** Se trata de una combinación de la selección forward y backward. Se inicia igual que el forward pero tras cada nueva incorporación se realiza un test de extracción de predictores no útiles como en el backward. Presenta la ventaja de que si a medida que se añaden predictores, alguno de los ya presentes deja de contribuir al modelo, se elimina.
+
+
+---
+
+# Selección de los predictores
+
+
+El método paso a paso requiere de algún criterio matemático para determinar si el modelo mejora o empeora con cada incorporación o extracción. Existen varios parámetros empelados, de entre los que destacan el Cp, AIC, BIC y R2 ajustado, cada uno de ellos con ventajas e inconvenientes. 
+
+&gt; El método Akaike(AIC) tiende a ser más restrictivo e introducir menos predictores que el R2-ajustado. Para un mismo set de datos, no todos los métodos tienen porque concluir en un mismo modelo.
+
+
+---
+
+# Selección de los predictores
+
+
+.pull-left[
+Es frecuente encontrar ejemplos en los que la selección de predictores se basa en el p-value asociado a cada uno. Si bien este método es sencillo e intuitivo, presenta múltiples problemas: la inflación del error tipo I debida a las comparaciones múltiples, la eliminación de los predictores menos significativos tiende a incrementar la significancia de los otros predictores … Por esta razón, a excepción de casos muy sencillos con pocos predictores, es preferible no emplear los p-values como criterio de selección.
+]
+
+.pull-right[
+
+.center[
+# ¿¿ P-Value ??
+]
+]
+
+
+
+---
+
+# Selección de los predictores
+
+.pull-left[
+En el caso de variables categóricas, si al menos uno de sus niveles es significativo, se considera que la variable lo es. Cabe mencionar que, si una variable se excluye del modelo como predictor, significa que no aporta información adicional al modelo, pero sí puede estar relacionada con la variable respuesta.
+
+En R la función step() permite encontrar el mejor modelo basado en AIC utilizando cualquiera de las 3 variantes del método paso a paso.
+
+]
+
+
+.center[
+# Variables categóricas
+]
+]
+
+
+---
+
+# 3. Selección de los mejores predictores
+
+En este caso se van a emplear la estrategia de stepwise mixto. El valor matemático empleado para determinar la calidad del modelo va a ser Akaike (AIC).
+
+
+```r
+step(object = modelo, direction = "both", trace = 1)
+```
+
+
+El mejor modelo resultante del proceso de selección ha sido:
+
+
+```r
+modelo &lt;- (lm(formula = esp_vida ~ habitantes + asesinatos + universitarios +
+              heladas, data = datos))
+summary(modelo)
+```
+
+---
+
+# 4. Intervalos de confianza
+
+Es recomendable mostrar el intervalo de confianza para cada uno de los coeficientes parciales de regresión:
+
+
+```r
+confint(lm(formula = esp_vida ~ habitantes + asesinatos + universitarios +
+            heladas, data = datos))
+```
+
+```
+##                        2.5 %        97.5 %
+## (Intercept)     6.910798e+01 72.9462729104
+## habitantes     -4.543308e-07  0.0001007343
+## asesinatos     -3.738840e-01 -0.2264135705
+## universitarios  1.671901e-02  0.0764454870
+## heladas        -1.081918e-02 -0.0010673977
+```
+
+---
+
+# 5. Validación de condiciones para la regresión múltiple lineal
+
+&gt; Relación lineal entre los predictores numéricos y la variable respuesta:
+
+
+Esta condición se puede validar bien mediante diagramas de dispersión entre la variable dependiente y cada uno de los predictores (como se ha hecho en el análisis preliminar) o con diagramas de dispersión entre cada uno de los predictores y los residuos del modelo. Si la relación es lineal, los residuos deben de distribuirse aleatoriamente en torno a 0 con una variabilidad constante a lo largo del eje X. Esta última opción suele ser más indicada ya que permite identificar posibles datos atípicos.
+
+
+
+
+```r
+library(ggplot2)
+library(gridExtra)
+plot1 &lt;- ggplot(data = datos, aes(habitantes, modelo$residuals)) +
+    geom_point() + geom_smooth(color = "firebrick") + geom_hline(yintercept = 0) +
+    theme_bw()
+plot2 &lt;- ggplot(data = datos, aes(asesinatos, modelo$residuals)) +
+    geom_point() + geom_smooth(color = "firebrick") + geom_hline(yintercept = 0) +
+    theme_bw()
+plot3 &lt;- ggplot(data = datos, aes(universitarios, modelo$residuals)) +
+    geom_point() + geom_smooth(color = "firebrick") + geom_hline(yintercept = 0) +
+    theme_bw()
+plot4 &lt;- ggplot(data = datos, aes(heladas, modelo$residuals)) +
+    geom_point() + geom_smooth(color = "firebrick") + geom_hline(yintercept = 0) +
+    theme_bw()
+grid.arrange(plot1, plot2, plot3, plot4)
+```
+
+---
+
+Se cumple la linealidad para todos los predictores
+
+![](Class_7_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
+
+
+---
+
+&gt; Distribución normal de los residuos:
+
+Tanto el análisis gráfico como es test de hipótesis confirman la normalidad.
+
+
+```r
+qqnorm(modelo$residuals)
+qqline(modelo$residuals)
+```
+
+![](Class_7_files/figure-html/unnamed-chunk-12-1.png)&lt;!-- --&gt;
+
+```r
+shapiro.test(modelo$residuals)
+```
+
+```
+## 
+## 	Shapiro-Wilk normality test
+## 
+## data:  modelo$residuals
+## W = 0.97147, p-value = 0.2654
+```
+
+
+---
+
+&gt; Variabilidad constante de los residuos (homocedasticidad):
+
+
+.pull-left[
+
+Al representar los residuos frente a los valores ajustados por el modelo, los primeros se tienen que distribuir de forma aleatoria en torno a cero, manteniendo aproximadamente la misma variabilidad a lo largo del eje X. Si se observa algún patrón específico, por ejemplo forma cónica o mayor dispersión en los extremos, significa que la variabilidad es dependiente del valor ajustado y por lo tanto no hay homocedasticidad.
+
+]
+
+
+.pull-right[
+
+
+```r
+ggplot(data = datos, aes(modelo$fitted.values, modelo$residuals)) +
+geom_point() +
+geom_smooth(color = "firebrick", se = FALSE) +
+geom_hline(yintercept = 0) +
+theme_bw()
+
+
+library(lmtest)
+bptest(modelo)
+```
+
+
+]
+
+
+---
+
+&gt; Variabilidad constante de los residuos (homocedasticidad):
+
+No hay evidencias de falta de homocedasticidad.
+
+![](Class_7_files/figure-html/unnamed-chunk-14-1.png)&lt;!-- --&gt;
+
+```
+## 
+## 	studentized Breusch-Pagan test
+## 
+## data:  modelo
+## BP = 10.552, df = 8, p-value = 0.2284
+```
+
+
+---
+
+
+# Interacción de predictores
+
+
+Supóngase que el departamento de ventas de una empresa quiere estudiar la influencia que tiene la publicidad a través de distintos canales sobre el número de ventas de un producto. Se dispone de un conjunto de datos que contiene los ingresos (en millones) conseguido por ventas en 200 regiones, así como la cantidad de presupuesto, también en millones, destinado a anuncios por radio, TV y periódicos en cada una de ellas.
+
+
+
+```r
+tv &lt;- c(230.1, 44.5, 17.2, 151.5, 180.8, 8.7, 57.5, 120.2, 8.6, 199.8, 66.1, 214.7, 23.8, 97.5, 204.1, 195.4, 67.8, 281.4, 69.2, 147.3, 218.4, 237.4, 13.2, 228.3, 62.3, 262.9, 142.9, 240.1, 248.8, 70.6, 292.9, 112.9, 97.2, 265.6, 95.7, 290.7, 266.9, 74.7, 43.1, 228.0, 202.5, 177.0, 293.6, 206.9, 25.1, 175.1, 89.7, 239.9, 227.2, 66.9, 199.8, 100.4, 216.4, 182.6, 262.7, 198.9, 7.3, 136.2, 210.8, 210.7, 53.5, 261.3, 239.3, 102.7, 131.1, 69.0, 31.5, 139.3, 237.4, 216.8, 199.1, 109.8, 26.8, 129.4, 213.4, 16.9, 27.5, 120.5, 5.4, 116.0, 76.4, 239.8, 75.3, 68.4, 213.5, 193.2, 76.3, 110.7, 88.3, 109.8, 134.3, 28.6, 217.7, 250.9, 107.4, 163.3, 197.6, 184.9, 289.7, 135.2, 222.4, 296.4, 280.2, 187.9, 238.2, 137.9, 25.0, 90.4, 13.1, 255.4, 225.8, 241.7, 175.7, 209.6, 78.2, 75.1, 139.2, 76.4, 125.7, 19.4, 141.3, 18.8, 224.0, 123.1, 229.5, 87.2, 7.8, 80.2, 220.3, 59.6, 0.7, 265.2, 8.4, 219.8, 36.9, 48.3, 25.6, 273.7, 43.0, 184.9, 73.4, 193.7, 220.5, 104.6, 96.2, 140.3, 240.1, 243.2, 38.0, 44.7, 280.7, 121.0, 197.6, 171.3, 187.8, 4.1, 93.9, 149.8, 11.7, 131.7, 172.5, 85.7, 188.4, 163.5, 117.2, 234.5, 17.9, 206.8, 215.4, 284.3, 50.0, 164.5, 19.6, 168.4, 222.4, 276.9, 248.4, 170.2, 276.7, 165.6, 156.6, 218.5, 56.2, 287.6, 253.8, 205.0, 139.5, 191.1, 286.0, 18.7, 39.5, 75.5, 17.2, 166.8, 149.7, 38.2, 94.2, 177.0, 283.6, 232.1)
+radio &lt;- c(37.8, 39.3, 45.9, 41.3, 10.8, 48.9, 32.8, 19.6, 2.1, 2.6, 5.8, 24.0, 35.1, 7.6, 32.9, 47.7, 36.6, 39.6, 20.5, 23.9, 27.7, 5.1, 15.9, 16.9, 12.6, 3.5, 29.3, 16.7, 27.1, 16.0, 28.3, 17.4, 1.5, 20.0, 1.4, 4.1, 43.8, 49.4, 26.7, 37.7, 22.3, 33.4, 27.7, 8.4, 25.7, 22.5, 9.9, 41.5, 15.8, 11.7, 3.1, 9.6, 41.7, 46.2, 28.8, 49.4, 28.1, 19.2, 49.6, 29.5, 2.0, 42.7, 15.5, 29.6, 42.8, 9.3, 24.6, 14.5, 27.5, 43.9, 30.6, 14.3, 33.0, 5.7, 24.6, 43.7, 1.6, 28.5, 29.9, 7.7, 26.7, 4.1, 20.3, 44.5, 43.0, 18.4, 27.5, 40.6, 25.5, 47.8, 4.9, 1.5, 33.5, 36.5, 14.0, 31.6, 3.5, 21.0, 42.3, 41.7, 4.3, 36.3, 10.1, 17.2, 34.3, 46.4, 11.0, 0.3, 0.4, 26.9, 8.2, 38.0, 15.4, 20.6, 46.8, 35.0, 14.3, 0.8, 36.9, 16.0, 26.8, 21.7, 2.4, 34.6, 32.3, 11.8, 38.9, 0.0, 49.0, 12.0, 39.6, 2.9, 27.2, 33.5, 38.6, 47.0, 39.0, 28.9, 25.9, 43.9, 17.0, 35.4, 33.2, 5.7, 14.8, 1.9, 7.3, 49.0, 40.3, 25.8, 13.9, 8.4, 23.3, 39.7, 21.1, 11.6, 43.5, 1.3, 36.9, 18.4, 18.1, 35.8, 18.1, 36.8, 14.7, 3.4, 37.6, 5.2, 23.6, 10.6, 11.6, 20.9, 20.1, 7.1, 3.4, 48.9, 30.2, 7.8, 2.3, 10.0, 2.6, 5.4, 5.7, 43.0, 21.3, 45.1, 2.1, 28.7, 13.9, 12.1, 41.1, 10.8, 4.1, 42.0, 35.6, 3.7, 4.9, 9.3, 42.0, 8.6)
+periodico &lt;- c(69.2, 45.1, 69.3, 58.5, 58.4, 75.0, 23.5, 11.6, 1.0, 21.2, 24.2, 4.0, 65.9, 7.2, 46.0, 52.9, 114.0, 55.8, 18.3, 19.1, 53.4, 23.5, 49.6, 26.2, 18.3, 19.5, 12.6, 22.9, 22.9, 40.8, 43.2, 38.6, 30.0, 0.3, 7.4, 8.5, 5.0, 45.7, 35.1, 32.0, 31.6, 38.7, 1.8, 26.4, 43.3, 31.5, 35.7, 18.5, 49.9, 36.8, 34.6, 3.6, 39.6, 58.7, 15.9, 60.0, 41.4, 16.6, 37.7, 9.3, 21.4, 54.7, 27.3, 8.4, 28.9, 0.9, 2.2, 10.2, 11.0, 27.2, 38.7, 31.7, 19.3, 31.3, 13.1, 89.4, 20.7, 14.2, 9.4, 23.1, 22.3, 36.9, 32.5, 35.6, 33.8, 65.7, 16.0, 63.2, 73.4, 51.4, 9.3, 33.0, 59.0, 72.3, 10.9, 52.9, 5.9, 22.0, 51.2, 45.9, 49.8, 100.9, 21.4, 17.9, 5.3, 59.0, 29.7, 23.2, 25.6, 5.5, 56.5, 23.2, 2.4, 10.7, 34.5, 52.7, 25.6, 14.8, 79.2, 22.3, 46.2, 50.4, 15.6, 12.4, 74.2, 25.9, 50.6, 9.2, 3.2, 43.1, 8.7, 43.0, 2.1, 45.1, 65.6, 8.5, 9.3, 59.7, 20.5, 1.7, 12.9, 75.6, 37.9, 34.4, 38.9, 9.0, 8.7, 44.3, 11.9, 20.6, 37.0, 48.7, 14.2, 37.7, 9.5, 5.7, 50.5, 24.3, 45.2, 34.6, 30.7, 49.3, 25.6, 7.4, 5.4, 84.8, 21.6, 19.4, 57.6, 6.4, 18.4, 47.4, 17.0, 12.8, 13.1, 41.8, 20.3, 35.2, 23.7, 17.6, 8.3, 27.4, 29.7, 71.8, 30.0, 19.6, 26.6, 18.2, 3.7, 23.4, 5.8, 6.0, 31.6, 3.6, 6.0, 13.8, 8.1, 6.4, 66.2, 8.7)
+ventas &lt;- c(22.1, 10.4, 9.3, 18.5, 12.9, 7.2, 11.8, 13.2, 4.8, 10.6, 8.6, 17.4, 9.2, 9.7, 19.0, 22.4, 12.5, 24.4, 11.3, 14.6, 18.0, 12.5, 5.6, 15.5, 9.7, 12.0, 15.0, 15.9, 18.9, 10.5, 21.4, 11.9, 9.6, 17.4, 9.5, 12.8, 25.4, 14.7, 10.1, 21.5, 16.6, 17.1, 20.7, 12.9, 8.5, 14.9, 10.6, 23.2, 14.8, 9.7, 11.4, 10.7, 22.6, 21.2, 20.2, 23.7, 5.5, 13.2, 23.8, 18.4, 8.1, 24.2, 15.7, 14.0, 18.0, 9.3, 9.5, 13.4, 18.9, 22.3, 18.3, 12.4, 8.8, 11.0, 17.0, 8.7, 6.9, 14.2, 5.3, 11.0, 11.8, 12.3, 11.3, 13.6, 21.7, 15.2, 12.0, 16.0, 12.9, 16.7, 11.2, 7.3, 19.4, 22.2, 11.5, 16.9, 11.7, 15.5, 25.4, 17.2, 11.7, 23.8, 14.8, 14.7, 20.7, 19.2, 7.2, 8.7, 5.3, 19.8, 13.4, 21.8, 14.1, 15.9, 14.6, 12.6, 12.2, 9.4, 15.9, 6.6, 15.5, 7.0, 11.6, 15.2, 19.7, 10.6, 6.6, 8.8, 24.7, 9.7, 1.6, 12.7, 5.7, 19.6, 10.8, 11.6, 9.5, 20.8, 9.6, 20.7, 10.9, 19.2, 20.1, 10.4, 11.4, 10.3, 13.2, 25.4, 10.9, 10.1, 16.1, 11.6, 16.6, 19.0, 15.6, 3.2, 15.3, 10.1, 7.3, 12.9, 14.4, 13.3, 14.9, 18.0, 11.9, 11.9, 8.0, 12.2, 17.1, 15.0, 8.4, 14.5, 7.6, 11.7, 11.5, 27.0, 20.2, 11.7, 11.8, 12.6, 10.5, 12.2, 8.7, 26.2, 17.6, 22.6, 10.3, 17.3, 15.9, 6.7, 10.8, 9.9, 5.9, 19.6, 17.3, 7.6, 9.7, 12.8, 25.5, 13.4)
+
+datos &lt;- data.frame(tv, radio, periodico, ventas)
+```
+
+
+---
+
+# Interacción de predictores
+
+El modelo lineal múltiple que se obtiene empleando las variables tv, radio y periodico como predictores de ventas es el siguiente:
+
+Acorde al p-value obtenido para el coeficiente parcial de regresión de periodico, esta variable no contribuye de forma significativa al modelo. Como resultado de este análisis se concluye que las variables tv y radio están asociadas con la cantidad de ventas.
+
+
+```r
+modelo &lt;- lm(formula = ventas ~ tv + radio + periodico, data = datos)
+summary(modelo)
+```
+
+```
+## 
+## Call:
+## lm(formula = ventas ~ tv + radio + periodico, data = datos)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -8.8277 -0.8908  0.2418  1.1893  2.8292 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  2.938889   0.311908   9.422   &lt;2e-16 ***
+## tv           0.045765   0.001395  32.809   &lt;2e-16 ***
+## radio        0.188530   0.008611  21.893   &lt;2e-16 ***
+## periodico   -0.001037   0.005871  -0.177     0.86    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 1.686 on 196 degrees of freedom
+## Multiple R-squared:  0.8972,	Adjusted R-squared:  0.8956 
+## F-statistic: 570.3 on 3 and 196 DF,  p-value: &lt; 2.2e-16
+```
+
+
+---
+
+# Interacción de predictores
+
+
+
+```r
+modelo &lt;- update(modelo, .~. -periodico)
+summary(modelo)
+```
+
+```
+## 
+## Call:
+## lm(formula = ventas ~ tv + radio, data = datos)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -8.7977 -0.8752  0.2422  1.1708  2.8328 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  2.92110    0.29449   9.919   &lt;2e-16 ***
+## tv           0.04575    0.00139  32.909   &lt;2e-16 ***
+## radio        0.18799    0.00804  23.382   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 1.681 on 197 degrees of freedom
+## Multiple R-squared:  0.8972,	Adjusted R-squared:  0.8962 
+## F-statistic: 859.6 on 2 and 197 DF,  p-value: &lt; 2.2e-16
+```
+
+---
+
+# Interacción de predictores
+
+El modelo lineal a partir del cual se han obtenido las conclusiones asume que el efecto sobre las ventas debido a un incremento en el presupuesto de uno de los medios de comunicación es independiente del presupuesto gastado en los otros. Por ejemplo, el modelo lineal considera que el efecto promedio sobre las ventas debido a aumentar en una unidad el presupuesto de anuncios en TV es siempre de 0.04575, independientemente de la cantidad invertida en anuncios por radio.
+
+
+&gt; El comportamiento sugiere que existe interacción entre los predictores, por lo que el efecto de cada uno de ellos sobre la variable respuesta depende en cierta medida del valor que tome el otro predictor.
+
+---
+
+# Interacción de predictores
+
+Para que el modelo pueda contemplar la interacción se introduce un tercer predictor, llamado "interaction term", que se construye con el producto de los predictores X1 y X2.
+
+$$
+Y = \beta_0 + \beta_1X_1 + \beta_2X_2 + \beta_3X_1X_2 + e
+$$
+
+En R se puede introducir interacción entre predictores de dos formas, indicando los predictores individuales y entre cuales se quiere evaluar la interacción, o bien de forma directa.
+
+
+---
+
+# Interacción de predictores
+
+Los resultados muestran una evidencia clara de que la interacción tv x radio es significativa y de que el modelo que incorpora la interacción (Adjusted R-squared = 0.9673) es superior al modelo que solo contemplaba el efecto de los predictores por separado (Adjusted R-squared = 0.8956).
+
+Se puede emplear un ANOVA para realizar un test de hipótesis y obtener un p-value que evalúe la hipótesis nula de que ambos modelos se ajustan a los datos igual de bien.
+
+
+
+```r
+modelo_interaccion &lt;- lm(formula = ventas ~ tv + radio + tv:radio, data = datos)
+summary(modelo_interaccion)
+```
+
+```
+## 
+## Call:
+## lm(formula = ventas ~ tv + radio + tv:radio, data = datos)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -6.3366 -0.4028  0.1831  0.5948  1.5246 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 6.750e+00  2.479e-01  27.233   &lt;2e-16 ***
+## tv          1.910e-02  1.504e-03  12.699   &lt;2e-16 ***
+## radio       2.886e-02  8.905e-03   3.241   0.0014 ** 
+## tv:radio    1.086e-03  5.242e-05  20.727   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.9435 on 196 degrees of freedom
+## Multiple R-squared:  0.9678,	Adjusted R-squared:  0.9673 
+## F-statistic:  1963 on 3 and 196 DF,  p-value: &lt; 2.2e-16
+```
+
+```r
+# lm(formula = ventas ~ tv * radio, data = datos) es equivalente.
+```
+
+
+
+---
+
+# Interacción de predictores
+
+En el contexto de los modelos, ANOVA se puede utilizar para comparar la variación explicada por diferentes modelos, permitiendo determinar si un modelo es significativamente mejor que otro.
+
+Para realizar una ANOVA entre modelos, es necesario primero ajustar cada modelo a los datos y calcular el valor de la estadística de prueba adecuada. La estadística de prueba a utilizar dependerá del tipo de modelo que se está comparando. En general, ANOVA se basará en una medida de ajuste, como el coeficiente de determinación (R2) o el logaritmo de la verosimilitud (log-likelihood). Luego, se utiliza la distribución F para determinar si la diferencia en la variación explicada por los modelos es significativa.
+
+
+&gt; La hipótesis nula es que no hay diferencia significativa en la calidad de ajuste entre los modelos, mientras que la hipótesis alternativa es que al menos uno de los modelos es significativamente mejor que los otros.
+
+
+---
+
+
+# Interacción de predictores
+
+
+```r
+anova(modelo, modelo_interaccion)
+```
+
+```
+## Analysis of Variance Table
+## 
+## Model 1: ventas ~ tv + radio
+## Model 2: ventas ~ tv + radio + tv:radio
+##   Res.Df    RSS Df Sum of Sq      F    Pr(&gt;F)    
+## 1    197 556.91                                  
+## 2    196 174.48  1    382.43 429.59 &lt; 2.2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+```
+
+
+---
+
+# Repaso de la regresión polinomial
+
+
+Una marca de coches quiere generar un modelo de regresión que permita predecir el consumo de combustible (mpg) en función de la potencia del motor (horsepower).
+
+
+
+```r
+library(ISLR)
+attach(Auto)
+plot(x = horsepower, y = mpg, main = "Consumo vs potencia motor", pch = 20,
+     col = "grey")
+
+attach(Auto)
+modelo_lineal &lt;- lm(formula = mpg ~ horsepower, data = Auto)
+summary(modelo_lineal)
+
+
+plot(x = horsepower, y = mpg, main = "Consumo vs potencia motor", pch = 20,
+     col = "grey")
+abline(modelo_lineal, lwd = 3, col = "red")
+
+
+modelo_pol2 &lt;- lm(formula = mpg ~ horsepower + I(horsepower^2), data = Auto)
+# El uso de I() es necesario ya que el símbolo ^ tiene otra función dentro de las formula de R
+
+modelo_cuadratico &lt;- lm(formula = mpg ~ poly(horsepower, 2), data = Auto)
+summary(modelo_cuadratico)
+
+par(mfrow = c(2, 2))
+plot(modelo_cuadratico)
+
+
+anova(modelo_lineal, modelo_cuadratico)
+
+
+library(ggplot2)
+ggplot(Auto, aes(x = horsepower, y = mpg)) +
+    geom_point(colour = "grey") +
+    stat_smooth(method = "lm", formula = y ~ poly(x, 2), colour = "red") +
+    labs(title = "Consumo vs potencia motor") +
+    theme_bw()
+```
+
+
+---
+
+# Comparación de modelos mediante test de hipótesis, F-test
+
+Cuando se dispone de múltiples predictores para crear un modelo, es recomendable estudiar si todos ellos son necesarios o si se puede conseguir un modelo más óptimo empleando solo algunos de ellos.
+
+
+
+&gt; Supóngase un modelo M  y otro modelo m, de menor tamaño, formado por un subconjunto de los predictores contenidos en M. Si la diferencia en el ajuste es muy pequeña, acorde al principio de parsimonia, el modelo m es más adecuado. Es posible contrastar si la diferencia en ajuste es significativa mediante la comparación de los residuos. En concreto el estadístico empleado es:
+
+$$
+\frac{RSS_m - RSS_M}{RSS_M}
+$$
+
+---
+
+# Comparación de modelos mediante test de hipótesis, F-test
+
+Para evitar que el tamaño del modelo influya en el contraste, se divide la suma de residuos cuadrados RSS de cada modelo entre sus grados de libertad. El estadístico resultante sigue una distribución F.
+
+`$$\frac{RSS_m - RSS_M/(df_m-df_M)}{RSS_M/(df_M)} \sim F_{df_m - df_M , df_M}$$`
+
+donde df son los grados de libertad del modelo, que equivalen al número de observaciones menos el número de predictores.
+
+
+---
+
+# Comparar si dos coeficientes de regresión de un mismo modelo son iguales
+
+Supóngase un modelo en el que se ajusta la variable respuesta éxito escolar sobre los predictores horas de estudio con la madre y horas de estudio con el padre. Si ambos predictores son significativos, podría ser de interés estudiar si ambos son iguales, es decir, si padres y madres influyen de la misma forma.
+
+
+$$
+H_0: \beta_1 = \beta_2 \\
+H_1: \beta_1 \neq \beta_2
+$$
+
+**Wald Test**
+
+Esta aproximación suele ser la más intuitiva, ya que sigue la estructura típica de un test de hipótesis en la que el estadístico se calcula como el valor observado menos el valor de la hipótesis nula dividido entre el error estándar.
+
+
+`$$\left( \frac{(\beta_1 - \beta_2) - 0}{SE(\beta_1 - \beta_2)} \right)^2 = F_{1, n-p-1}$$`
+
+`$$\left( \frac{(\beta_1 - \beta_2) }{\sigma^2_{\beta_1} + \sigma^2_{\beta_2} - 2 \sigma_{\beta_1}\sigma_{\beta_2}} \right)^2 = F_{1, n-p-1}$$`
+
+---
+
+# Comparar si dos coeficientes de regresión de un mismo modelo son iguales
+
+
+
+```r
+library(car)
+
+data(mtcars)
+
+# Run our model
+m1 &lt;- lm(mpg ~ hp + disp + am + wt, data = mtcars)
+
+# Test a linear combination of coefficients
+linearHypothesis(m1, c('hp = disp'))
+
+# Test joint significance of multiple coefficients
+linearHypothesis(m1, c('hp = 0','disp = 0'))
+
+# Test joint significance of multiple linear combinations
+linearHypothesis(m1, c('hp - disp = 0','am - wt = 0'))
+```
+
+
+
+---
+
+class: inverse, center, middle
+background-color: #122140
+
+.pull-left[
+
+.center[
+&lt;br&gt;&lt;br&gt;
+
+# Gracias!!!
+
+&lt;br&gt;
+
+
+
+### ¿Preguntas?
+
+&lt;br&gt;
+
+
+&lt;img src="img/qr-code.png" width="49%" style="display: block; margin: auto;" /&gt;
+
+
+]
+
+
+]
+
+
+.pull-right[
+
+&lt;br&gt; 
+&lt;br&gt; 
+&lt;img style="border-radius: 50%;" src="img/avatar.png"
+width="150px"
+/&gt;
+
+### [www.joaquibarandica.com](https://www.joaquibarandica.com)
+
+<i class="fa fa-envelope" role="presentation" aria-label="envelope icon"></i> orlando.joaqui@javerianacali.edu.co
+
+&lt;img src="img/Logo.jpg" width="120%"&gt;
+
+]
+
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;
+
+
+
+
+
+
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
