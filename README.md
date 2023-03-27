@@ -18,6 +18,10 @@ Clase 5. [Regresión Lineal Simple](https://juniorjb5.github.io/EconometriaI/Cla
 
 Clase 5. [Video](https://correounivalleeduco-my.sharepoint.com/:v:/g/personal/orlando_joaqui_correounivalle_edu_co/ESjqfB7hwpdJpFkubIv5isEBK4mSYbCkADGYQ1l6S6vryQ?e=rLbmFk)
 
+Clase 6. El PDF está en el Brightspace.
+
+Clase 7. [Regresión Lineal Múltiple](https://juniorjb5.github.io/EconometriaI/Class_7/Class_7.html#1) 
+
 **En la carpeta Datos se encuentra el PDF de la clase virtual Clase 5**
 
 Talleres. [Link de Actividades](https://juniorjb5.github.io/EconometriaI/Actividades/Actividades.html#1)
