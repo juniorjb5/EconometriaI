@@ -1,0 +1,516 @@
+---
+title: "Econometria I"
+subtitle: "<br/> Regresión Lineal Múltiple"
+author: "PhD.(C) Orlando Joaqui-Barandica"
+institute: "Pontificia Universidad Javeriana de Cali"
+date: "2023"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: 
+      - default
+      - rladies
+      - rladies-fonts
+      - fonts_mtheme.css
+    includes:
+      in_header: "mathjax-equation-numbers.html"
+    seal: false  
+    nature: 
+      ratio: 16:9
+      beforeInit: "macros.js"
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+
+```{r setup, include = FALSE}
+library(knitr)                              # paquete que trae funciones utiles para R Markdown
+library(tidyverse)                          # paquete que trae varios paquetes comunes en el tidyverse
+library(datos)                              # paquete que viene con datos populares traducidos al español :)
+library(shiny)
+# opciones predeterminadas
+knitr::opts_chunk$set(echo = FALSE,         # FALSE: los bloques de código NO se muestran
+                      dpi = 300,            # asegura gráficos de alta resolución
+                      warning = FALSE,      # los mensajes de advertencia NO se muestran
+                      error = FALSE)        # los mensajes de error NO se muestran
+
+
+options(htmltools.dir.version = FALSE)
+
+library(xaringan)
+
+
+
+```
+
+class: inverse, left, bottom
+background-image: url("img/fondo.jpg")
+background-size: cover
+
+
+# **`r rmarkdown::metadata$title`**
+----
+
+## **`r rmarkdown::metadata$subtitle`**
+
+### `r rmarkdown::metadata$author`
+### `r rmarkdown::metadata$date`
+
+```{r xaringanExtra-share-again, echo=FALSE}
+xaringanExtra::use_share_again()
+```
+
+```{r xaringanExtra-clipboard, echo=FALSE}
+xaringanExtra::use_clipboard()
+```
+
+---
+name: hola
+class: inverse, middle, center
+
+<img style="border-radius: 60%;" src="img/jave.jpg"
+width="150px"
+/>
+
+# Pontificia Universidad Javeriana de Cali
+
+--
+
+## Programa de Economía
+---
+
+
+
+
+.pull-left[
+
+<br><br><br><br><br>
+
+```{r echo=FALSE, out.width = "110%" }
+knitr::include_graphics("img/gif1.gif")
+```
+]
+
+<br><br><br><br><br>
+
+
+.pull-right[
+# Orlando Joaqui-Barandica
+### [www.joaquibarandica.com](https://www.joaquibarandica.com)
+ *PhD.(C) in Industrial Engineering* 
+ 
+ *MSc. Applied Economics*
+ 
+ *BSc. Statistics*
+]
+
+---
+
+
+
+# Modelo lineal múltiple en forma matricial
+
+- El modelo lineal múltiple es una herramienta común en la estadística y el análisis de datos.
+
+- Permite relacionar una variable de interés con múltiples covariables.
+
+- La forma matricial del modelo es particularmente útil para su análisis y resolución.
+
+
+
+### El modelo lineal múltiple se puede expresar en forma matricial como:
+
+  $$
+  Y = X\beta + \epsilon
+  $$
+
+
+
+---
+
+# Modelo lineal múltiple en forma matricial
+
+$$
+Y = X\beta + \epsilon
+$$
+
+
+$$Y = \begin{bmatrix} y_1 \\ y_2 \\ \vdots \\ y_n \end{bmatrix} , \quad
+X = \begin{bmatrix} 
+1 & x_{11} & x_{12} & \cdots & x_{1p} \\
+1 & x_{21} & x_{22} & \cdots & x_{2p} \\
+\vdots & \vdots & \vdots & \ddots & \vdots \\
+1 & x_{n1} & x_{n2} & \cdots & x_{np} \\
+\end{bmatrix} , \quad
+\beta = \begin{bmatrix} \beta_0 \\ \beta_1 \\ \beta_2 \\ \vdots \\ \beta_p \end{bmatrix} , \quad
+\epsilon = \begin{bmatrix} \epsilon_1 \\ \epsilon_2 \\ \vdots \\ \epsilon_n \end{bmatrix}$$
+
+
+Donde:
+
+- Y es un vector de respuestas de longitud n.
+- X es una matriz de covariables de dimensión n x p.
+- beta es un vector de coeficientes de longitud p.
+- epsilon es un vector de errores de longitud n.
+
+
+---
+
+# Solución de mínimos cuadrados
+
+- La solución de mínimos cuadrados para $\beta$ está dada por:
+
+  $$
+  \hat{\beta} = (X^\top X)^{-1} X^\top Y
+  $$
+
+- La matriz $(X^\top X)^{-1} X^\top$ se conoce como la **matriz pseudo-inversa** de $X$.
+
+### Interpretación de los coeficientes
+
+- Los coeficientes $\beta$ representan el cambio en la respuesta $Y$ esperado por cada cambio unitario en la covariable correspondiente, manteniendo las demás covariables constantes.
+- Si $\beta_i > 0$, entonces un aumento en la covariable $X_i$ se asocia con un aumento en $Y$.
+- Si $\beta_i < 0$, entonces un aumento en la covariable $X_i$ se asocia con una disminución en $Y$.
+- Si $\beta_i = 0$, entonces la covariable $X_i$ no está asociada con una variación en $Y$.
+
+---
+
+
+## Estimación de los modelos del parámetro
+
+### El estimador de mínimos cuadrados
+
+En la sección anterior, se introdujo el modelo de regresión lineal:
+
+$$Y_i = \beta_0 + \beta_1X_{i1} + \beta_2X_{i2} + \cdots + \beta_pX_{ip} + \epsilon_i$$
+
+donde $Y_i$ es la variable de respuesta para la observación $i$, $X_{i1}, X_{i2}, \ldots, X_{ip}$ son las variables predictoras, $\beta_0, \beta_1, \beta_2, \ldots, \beta_p$ son los parámetros desconocidos del modelo y $\epsilon_i$ es el error aleatorio para la observación $i$.
+
+El objetivo de la regresión lineal es encontrar los valores de los parámetros $\beta$ que mejor ajusten los datos observados. En particular, queremos encontrar los valores de $\beta$ que minimizan la suma de los residuos cuadrados:
+
+$$\sum_{i=1}^{n} e_i^2 = \sum_{i=1}^{n} (Y_i - \hat{Y_i})^2$$
+
+donde $\hat{Y_i}$ es la predicción del modelo para la observación $i$ y $e_i = Y_i - \hat{Y_i}$ es el residuo correspondiente.
+
+---
+
+#### Estimador de mínimos cuadrados
+
+La solución de mínimos cuadrados para el vector de parámetros $\beta$ se obtiene minimizando la suma de los residuos cuadrados. La solución es:
+
+$$\hat{\beta} = (X^TX)^{-1}X^TY$$
+
+donde $X$ es la matriz de diseño de tamaño $n \times (p+1)$ que contiene las variables predictoras y una columna de unos para el término constante, y $Y$ es el vector de respuestas de tamaño $n \times 1$.
+
+##### Demostración
+
+Para demostrar que $\hat{\beta}$ es el estimador de mínimos cuadrados del vector de parámetros $\beta$, primero escribimos la suma de los residuos cuadrados en términos de $\beta$ y $\hat{\beta}$:
+
+$$\sum_{i=1}^{n} e_i^2 = \sum_{i=1}^{n} (Y_i - \hat{Y_i})^2 = \sum_{i=1}^{n} (Y_i - X_i\hat{\beta})^2$$
+
+donde $X_i$ es la fila $i$ de la matriz de diseño $X$. Para minimizar esta expresión con respecto a $\hat{\beta}$, tomamos su derivada e igualamos a cero:
+
+$$\frac{\partial}{\partial \hat{\beta}} \sum_{i=1}^{n} (Y_i - X_i\hat{\beta})^2 = 0$$
+---
+
+### Matricialmente:
+
+$$\sum_{i=1}^{n} \epsilon_i ^2 = \epsilon^T\epsilon = (y-X\beta)^T(y-X\beta)$$
+
+$$= y^Ty - \beta^TX^Ty - y^TX\beta + \beta X^TX\beta $$
+
+Dado que.. $(y^TX\beta)^T = \beta^TX^Ty$ Entonces...
+
+$$= y^Ty - 2 \beta^TX^Ty  + \beta X^TX\beta $$
+
+La derivada de lo anterior, respecto a $\beta$ e igualado a cero. Da como resultado las ecuaciones normales de mínimos cuadrados.
+
+$$X^TX\hat{\beta} = X^Ty$$
+Despejando...
+
+$$\hat{\beta} = (X^TX)^{-1} X^Ty$$
+
+---
+
+# En R
+
+```{r, echo = TRUE, eval=FALSE}
+
+# Generar datos de ejemplo
+set.seed(123)
+n <- 100
+p <- 3
+X <- matrix(rnorm(n * p), n, p)
+beta <- c(1, 2, -1, 0.5)
+eps <- rnorm(n)
+Y <- X %*% beta[-1] + beta[1] + eps
+
+# Estimación por mínimos cuadrados
+X_design <- cbind(1, X)
+beta_hat <- solve(t(X_design) %*% X_design) %*% t(X_design) %*% Y
+beta_hat
+
+
+```
+
+---
+
+# Propiedades de los estimadores
+
+
+$$\begin{aligned}
+E(\hat{\beta}) &= E\left[(X^TX)^{-1}X^TY\right]\ \\
+&= E\left[(X^TX)^{-1}X^T(X\beta+\epsilon)\right]\ \\
+&= E\left[(X^TX)^{-1}X^TX\beta + (X^TX)^{-1}X^T\epsilon\right]\ \\
+&= \beta + (X^TX)^{-1}X^TE(\epsilon)\ \\
+&= \beta + (X^TX)^{-1}X^T\cdot 0\ \\
+&= \beta
+\end{aligned}$$
+
+
+$$\begin{aligned}
+Var(\hat{\beta}) &= E[(\hat{\beta}-E(\hat{\beta}))(\hat{\beta}-E(\hat{\beta}))^T]\ \\
+&= E[(X^TX)^{-1}X^T(\epsilon\epsilon^T)X(X^TX)^{-1}]\ \\
+&= (X^TX)^{-1}X^TE(\epsilon\epsilon^T)X(X^TX)^{-1}\ \\
+&= (X^TX)^{-1}X^T(\sigma^2I)X(X^TX)^{-1}\ \\
+&= \sigma^2(X^TX)^{-1} 
+\end{aligned}$$
+
+donde usamos que $E(\epsilon\epsilon^T) = \sigma^2I$, debido a que el término de error $\epsilon$ se asume que es independiente e idénticamente distribuido con una distribución normal con media cero y varianza $\sigma^2$. Además, usamos que $(X^TX)^{-1}(X^T)^T=(X^TX)^{-1}X^TX=I$.
+
+
+
+---
+
+# Propiedades de los estimadores
+
+$$Var(\hat{\beta}) = \sigma^2 (X^T X)^{-1} = \begin{bmatrix}
+\text{Var}(\hat{\beta}_1) & \text{Cov}(\hat{\beta}_1, \hat{\beta}_2) & \cdots & \text{Cov}(\hat{\beta}_1, \hat{\beta}_p)\\
+\text{Cov}(\hat{\beta}_2, \hat{\beta}_1) & \text{Var}(\hat{\beta}_2) & \cdots & \text{Cov}(\hat{\beta}_2, \hat{\beta}_p)\\
+\vdots & \vdots & \ddots & \vdots\\
+\text{Cov}(\hat{\beta}_p, \hat{\beta}_1) & \text{Cov}(\hat{\beta}_p, \hat{\beta}_2) & \cdots & \text{Var}(\hat{\beta}_p)
+\end{bmatrix}$$
+
+
+
+---
+
+## Supuesto de linealidad
+
+El modelo de regresión lineal clásico con matrices se puede expresar como:
+
+$$Y = X\beta + \epsilon$$
+
+Donde:
+
+- $Y$ es un vector $n \times 1$ de las observaciones de la variable dependiente.
+- $X$ es una matriz $n \times k$ de las observaciones de las variables independientes.
+- $\beta$ es un vector $k \times 1$ de los coeficientes de regresión.
+- $\epsilon$ es un vector $n \times 1$ de los errores.
+
+Este supuesto establece que la relación entre la variable independiente y la variable dependiente debe ser lineal.
+
+---
+
+## Supuesto de homocedasticidad
+
+Este supuesto establece que los errores del modelo deben ser homocedásticos, lo que significa que la matriz de covarianza de los errores debe ser constante en toda la gama de valores de la variable independiente.
+
+Matricialmente, se expresa como:
+
+$$Var(\epsilon) = \sigma^2I_n$$
+
+Donde:
+
+- $Var(\epsilon)$ es la matriz de covarianza de los errores.
+- $\sigma^2$ es la varianza común de los errores.
+- $I_n$ es la matriz identidad de orden $n$.
+
+---
+
+## Supuesto de normalidad
+
+Este supuesto establece que los errores del modelo deben seguir una distribución normal.
+
+Matricialmente, se expresa como:
+
+$$\epsilon \sim N_n(0, \sigma^2I_n)$$
+
+Donde:
+
+- $N_n$ es la distribución normal multivariada de orden $n$.
+
+---
+
+## Supuesto de independencia
+
+Este supuesto establece que los errores del modelo deben ser independientes entre sí.
+
+Matricialmente, se expresa como:
+
+$$Cov(\epsilon) = \sigma^2I_n$$
+
+Donde:
+
+- $Cov(\epsilon)$ es la matriz de covarianza de los errores.
+- $\sigma^2$ es la varianza común de los errores.
+- $I_n$ es la matriz identidad de orden $n$.
+
+---
+
+
+
+class: center, inverse
+
+###  Es importante verificar estos supuestos antes de utilizar el modelo, ya que la violación de uno o varios de ellos puede afectar la precisión de los coeficientes estimados y la validez de las inferencias realizadas.
+
+
+---
+
+
+# Además...
+
+Matricialmente, podemos expresar que el valor esperado de cada $u_i$ es igual a cero condicionado a todas las observaciones de la matriz $X$ como:
+
+
+
+
+$$ E(\epsilon|X) = E(Y - X\beta|X) = E(Y|X) - E(X\beta|X) = X\beta - X\beta = 0 $$ 
+
+
+.pull-left[
+
+Donde:
+
+- $E(\epsilon|X)$ es el valor esperado condicionado de los errores.
+- $Y$ es un vector $n \times 1$ de las observaciones de la variable dependiente.
+- $X$ es una matriz $n \times k$ de las observaciones de las variables independientes.
+- $\beta$ es un vector $k \times 1$ de los coeficientes de regresión.
+- $\epsilon$ es un vector $n \times 1$ de los errores.
+- $u_i$ es el i-ésimo error del modelo.
+
+]
+
+.pull-right[
+
+$$E(\epsilon|X) = \begin{bmatrix} E(\epsilon_1|X) \\ E(\epsilon_2|X) \\ \vdots \\ E(\epsilon_n|X) \end{bmatrix} = \begin{bmatrix} 0 \\  0 \\  \vdots \\  0 \end{bmatrix} = 0$$ 
+
+
+]
+
+---
+
+# Matriz de varianzas y covarianzas de los errores
+
+La matriz de varianzas y covarianzas del vector de errores $\epsilon$ se define como:
+
+$$Var(\epsilon)=\sigma^2I_n$$
+
+donde $\sigma^2$ es la varianza común de los errores y $I_n$ es la matriz identidad de orden $n \times n$.
+
+
+Podemos demostrar esto de forma matricial:
+
+
+Primero, consideramos la siguiente propiedad de matrices:
+
+$$Var(Ax) = AVar(x)A^T$$
+donde $A$ es una matriz de constantes y $x$ es un vector de variables aleatorias.
+
+Luego, podemos expresar el vector de errores $\epsilon$ como:
+
+$$\epsilon = y - X\beta$$
+donde $y$ es el vector de variables respuesta, $X$ es la matriz de variables explicativas y $\beta$ es el vector de coeficientes de regresión.
+
+---
+
+Tomando $A = X$, podemos escribir:
+
+$$Var(X\beta) = XVar(\beta)X^T$$
+Como el vector de errores es $\epsilon = y - X\beta$, tenemos:
+
+$$Var(\epsilon) = Var(y - X\beta) = Var(y)- Var(X\beta) - 2Cov(y, X\beta)$$
+donde $Cov(y, X\beta)$ es la covarianza entre $y$ y $X\beta$.
+
+
+Como se asume que los errores $\epsilon$ tienen varianza constante y son no correlacionados, tenemos que $Var(y) = \sigma^2 I_n$ y $Cov(y, X\beta) = 0$. Entonces, la ecuación anterior se reduce a:
+
+
+$$Var(\epsilon) = \sigma^2 I_n + XVar(\beta)X^T - 2(0)$$
+Entonces, reemplazamos $\sigma^2 I_n$ por $\sigma^2(X^TX)^{-1}(X^TX)$:
+
+
+.pull-left[
+donde utilizamos que $Var(y) = \sigma^2 I_n$ y $Cov(y, X\beta) = 0$, por simplicidad teórica se asume $Var(\beta) = 0$. Si ahora asumimos que los errores son no correlacionados, es decir, que $Cov(\epsilon_i, \epsilon_j) = 0$ para $i \neq j$, entonces la matriz de varianzas y covarianzas del error se reduce a:
+]
+
+.oull-right[
+$$Var(\epsilon) = \sigma^2 I_n = \begin{pmatrix}
+\sigma^2 & 0 & \cdots & 0 \\
+0 & \sigma^2 & \cdots & 0 \\
+\vdots & \vdots & \ddots & \vdots \\
+0 & 0 & \cdots & \sigma^2
+\end{pmatrix}$$
+]
+
+---
+
+
+class: inverse, center, middle
+background-color: #122140
+
+.pull-left[
+
+.center[
+<br><br>
+
+# Gracias!!!
+
+<br>
+
+
+
+### ¿Preguntas?
+
+<br>
+
+
+```{r qr, echo=FALSE, fig.align="center", out.width="49%"}
+knitr::include_graphics("img/qr-code.png")
+```
+
+
+]
+
+
+]
+
+
+.pull-right[
+
+<br> 
+<br> 
+<img style="border-radius: 50%;" src="img/avatar.png"
+width="150px"
+/>
+
+### [www.joaquibarandica.com](https://www.joaquibarandica.com)
+
+`r icon("envelope")` orlando.joaqui@javerianacali.edu.co
+
+<img src="img/Logo.jpg" width="120%">
+
+]
+
+
+<br><br><br>
+
+
+
+
+
+
+
+
+
