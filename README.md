@@ -22,6 +22,8 @@ Clase 6. El PDF está en el Brightspace.
 
 Clase 7. [Regresión Lineal Múltiple](https://juniorjb5.github.io/EconometriaI/Class_7/Class_7.html#1) 
 
+Clase 8. [Regresión Lineal Múltiple - Algunos apuntes matriciales](https://juniorjb5.github.io/EconometriaI/Class_8/Class_8.html#1) 
+
 **En la carpeta Datos se encuentra el PDF de la clase virtual Clase 5**
 
 Talleres. [Link de Actividades](https://juniorjb5.github.io/EconometriaI/Actividades/Actividades.html#1)
