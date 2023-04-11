@@ -811,7 +811,29 @@ summary(modelo_interaccion)
 # lm(formula = ventas ~ tv * radio, data = datos) es equivalente.
 ```
 
+---
 
+# Interacción de predictores
+
+Cómo interpretar cuando son **cuantitativas** las interacciones:
+
+&gt; El coeficiente de la interacción entre la publicidad en televisión y radio `\(\beta_3\)` indica que, para cada aumento de un millón de dólares en el gasto en publicidad en televisión, el efecto en las ventas del producto dependerá del nivel de gasto en publicidad en la radio. 
+
+&lt;br&gt;
+&lt;br&gt;
+
+&gt; Es decir, la relación entre el gasto en publicidad en televisión y las ventas del producto cambia según el nivel de gasto en publicidad en la radio, y viceversa. Por lo tanto, para maximizar las ventas del producto, se debe considerar cuidadosamente la combinación óptima de gasto en publicidad en televisión y radio, teniendo en cuenta cómo interactúan ambos tipos de publicidad."
+
+.center[
+
+** `\(\beta_3\)` no representa un aumento directo en ventas en millones de dólares **
+
+]
+
+&lt;br&gt;
+&lt;br&gt;
+
+Cuanto tienes variables **cualitativas**, una categoría ya está fija!!
 
 ---
 
@@ -919,6 +941,68 @@ Para evitar que el tamaño del modelo influya en el contraste, se divide la suma
 
 donde df son los grados de libertad del modelo, que equivalen al número de observaciones menos el número de predictores.
 
+---
+
+# Anova
+
+
+En este ejemplo se mostrará la segunda utilidad de la función anova. Para esto vamos a utilizar la base de datos **Cars93** del paquete **MASS.** El objetivo es construir un modelo para explicar la media del Price de los autos en función de las variables Horsepower, Type y Weight.
+
+----
+
+La solución de este ejercicio tendrá dos partes, en la primera se construirán varios modelos, iniciando con uno sin covariables (mod0) hasta uno con todas las covariables (mod3). En la segunda parte se analizará el modelo con todas las covariables directamente.
+
+
+
+```r
+library(MASS)
+
+mod0 &lt;- lm(Price ~ 1, data=Cars93)
+mod1 &lt;- lm(Price ~ Horsepower, data=Cars93)
+mod2 &lt;- lm(Price ~ Horsepower + Type, data=Cars93)
+mod3 &lt;- lm(Price ~ Horsepower + Type + Weight, data=Cars93)
+
+anova(mod0, mod1)
+
+anova(mod1, mod2)
+
+anova(mod2, mod3)
+```
+
+---
+
+
+# Anova
+
+
+
+* De la salida anterior se tiene que el valor-P es &lt; 2.2e-16 y por lo tanto se concluye que la variable Horsepower mejora el modelo (la misma conclusión se pudo obtener del summary).
+
+
+* De la salida anterior se tiene que el valor-P es 0.01337 y por lo tanto se concluye que el modelo mod2 con dos covariables explica mejor la variable Price.
+
+
+* De esta última salida vemos que el valor-P es 0.648, esto indica que la inclusión de la variable Weight no mejora el modelo mod2 (la misma conclusión se pudo obtener del summary).
+
+
+----
+
+.pull-left[
+
+En esta segunda parte del ejemplo se usará la función anova directamente sobre el modelo completo mod3, a continuación los resultados.
+
+
+```r
+anova(mod3)
+```
+
+]
+
+.pull-right[
+
+El valor-P reportado en la primer línea es &lt; 2e-16, esto indica el modelo con Horsepower es mejor que el modelo sin covariables; el valor-P de la segunda línea es 0.01411, esto indica que es mejor un modelo con las covariables Horsepower y Type; por último el valor-P de la tercer línea es 0.64803, esto indica que la variable Weight no mejora el modelo, es decir, que es mejor un modelo con solo Horsepower y Type.
+
+]
 
 ---
 
@@ -1183,7 +1267,7 @@ ggplot(nuevos_datos, aes(x=Edad, y=Resistencia))+
 
 .pull-right[
 
-![](Class_7_files/figure-html/unnamed-chunk-30-1.png)&lt;!-- --&gt;
+![](Class_7_files/figure-html/unnamed-chunk-32-1.png)&lt;!-- --&gt;
 
 
 ]
